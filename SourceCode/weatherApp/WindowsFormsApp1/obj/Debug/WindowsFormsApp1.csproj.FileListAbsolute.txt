@@ -1,0 +1,87 @@
+C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe.config
+C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe
+C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.pdb
+C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.AssemblyReference.cache
+C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Properties.Resources.resources
+C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.GenerateResource.cache
+C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.CoreCompileInputs.cache
+C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.exe
+C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb
+C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Form1.resources
+C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Buffers.dll
+C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Memory.dll
+C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Numerics.Vectors.dll
+C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Text.Encodings.Web.dll
+C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Text.Json.dll
+C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.ValueTuple.dll
+C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Buffers.xml
+C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Memory.xml
+C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Numerics.Vectors.xml
+C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Text.Encodings.Web.xml
+C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Text.Json.xml
+C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.ValueTuple.xml
+C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\obj\Debug\WindowsF.A1EEDF9B.Up2Date
+C:\SeeSharp Projekte\WeatherApp\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe.config
+C:\SeeSharp Projekte\WeatherApp\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe
+C:\SeeSharp Projekte\WeatherApp\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.pdb
+C:\SeeSharp Projekte\WeatherApp\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\SeeSharp Projekte\WeatherApp\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Buffers.dll
+C:\SeeSharp Projekte\WeatherApp\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Memory.dll
+C:\SeeSharp Projekte\WeatherApp\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Numerics.Vectors.dll
+C:\SeeSharp Projekte\WeatherApp\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\SeeSharp Projekte\WeatherApp\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Text.Encodings.Web.dll
+C:\SeeSharp Projekte\WeatherApp\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Text.Json.dll
+C:\SeeSharp Projekte\WeatherApp\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\SeeSharp Projekte\WeatherApp\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.ValueTuple.dll
+C:\SeeSharp Projekte\WeatherApp\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\SeeSharp Projekte\WeatherApp\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Buffers.xml
+C:\SeeSharp Projekte\WeatherApp\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Memory.xml
+C:\SeeSharp Projekte\WeatherApp\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Numerics.Vectors.xml
+C:\SeeSharp Projekte\WeatherApp\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\SeeSharp Projekte\WeatherApp\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Text.Encodings.Web.xml
+C:\SeeSharp Projekte\WeatherApp\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Text.Json.xml
+C:\SeeSharp Projekte\WeatherApp\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\SeeSharp Projekte\WeatherApp\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.ValueTuple.xml
+C:\SeeSharp Projekte\WeatherApp\WeatherApp\weatherApp\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.AssemblyReference.cache
+C:\SeeSharp Projekte\WeatherApp\WeatherApp\weatherApp\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Form1.resources
+C:\SeeSharp Projekte\WeatherApp\WeatherApp\weatherApp\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Properties.Resources.resources
+C:\SeeSharp Projekte\WeatherApp\WeatherApp\weatherApp\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.GenerateResource.cache
+C:\SeeSharp Projekte\WeatherApp\WeatherApp\weatherApp\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.CoreCompileInputs.cache
+C:\SeeSharp Projekte\WeatherApp\WeatherApp\weatherApp\WindowsFormsApp1\obj\Debug\WindowsF.A1EEDF9B.Up2Date
+C:\SeeSharp Projekte\WeatherApp\WeatherApp\weatherApp\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.exe
+C:\SeeSharp Projekte\WeatherApp\WeatherApp\weatherApp\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb
+C:\SchuleLokal\WeatherForecaster\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\Forecaster.exe.config
+C:\SchuleLokal\WeatherForecaster\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\Forecaster.exe
+C:\SchuleLokal\WeatherForecaster\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\Forecaster.pdb
+C:\SchuleLokal\WeatherForecaster\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\SchuleLokal\WeatherForecaster\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Buffers.dll
+C:\SchuleLokal\WeatherForecaster\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Memory.dll
+C:\SchuleLokal\WeatherForecaster\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Numerics.Vectors.dll
+C:\SchuleLokal\WeatherForecaster\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\SchuleLokal\WeatherForecaster\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Text.Encodings.Web.dll
+C:\SchuleLokal\WeatherForecaster\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Text.Json.dll
+C:\SchuleLokal\WeatherForecaster\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\SchuleLokal\WeatherForecaster\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.ValueTuple.dll
+C:\SchuleLokal\WeatherForecaster\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\SchuleLokal\WeatherForecaster\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Buffers.xml
+C:\SchuleLokal\WeatherForecaster\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Memory.xml
+C:\SchuleLokal\WeatherForecaster\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Numerics.Vectors.xml
+C:\SchuleLokal\WeatherForecaster\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\SchuleLokal\WeatherForecaster\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Text.Encodings.Web.xml
+C:\SchuleLokal\WeatherForecaster\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Text.Json.xml
+C:\SchuleLokal\WeatherForecaster\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\SchuleLokal\WeatherForecaster\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.ValueTuple.xml
+C:\SchuleLokal\WeatherForecaster\WeatherApp\weatherApp\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.AssemblyReference.cache
+C:\SchuleLokal\WeatherForecaster\WeatherApp\weatherApp\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Form1.resources
+C:\SchuleLokal\WeatherForecaster\WeatherApp\weatherApp\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Properties.Resources.resources
+C:\SchuleLokal\WeatherForecaster\WeatherApp\weatherApp\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.GenerateResource.cache
+C:\SchuleLokal\WeatherForecaster\WeatherApp\weatherApp\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.CoreCompileInputs.cache
+C:\SchuleLokal\WeatherForecaster\WeatherApp\weatherApp\WindowsFormsApp1\obj\Debug\WindowsF.A1EEDF9B.Up2Date
+C:\SchuleLokal\WeatherForecaster\WeatherApp\weatherApp\WindowsFormsApp1\obj\Debug\Forecaster.exe
+C:\SchuleLokal\WeatherForecaster\WeatherApp\weatherApp\WindowsFormsApp1\obj\Debug\Forecaster.pdb
