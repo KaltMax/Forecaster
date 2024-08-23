@@ -34,7 +34,6 @@ namespace WindowsFormsApp1
 
                 if (weatherInfo != null)
                 {
-                    // Weather information
                     resultTemperature.Text = $"{weatherInfo.Temperature} °C";
                     resultHumidity.Text = $"{weatherInfo.Humidity}%";
                     resultWindspeed.Text = $"{weatherInfo.WindSpeed} m/s";
@@ -42,19 +41,15 @@ namespace WindowsFormsApp1
                     resultSunrise.Text = DateTimeOffset.FromUnixTimeSeconds(weatherInfo.Sunrise).ToString("HH:mm");
                     resulstSunset.Text = DateTimeOffset.FromUnixTimeSeconds(weatherInfo.Sunset).ToString("HH:mm");
 
-                    // Weather icon
                     string iconUrl = $"http://openweathermap.org/img/wn/{weatherInfo.Icon}.png";
                     weatherPicture.Load(iconUrl);
 
-                    // Get forecast information
                     forecastInfos = await weatherService.GetForecastByCoordinatesAsync(weatherInfo.Latitude, weatherInfo.Longitude);
 
                     if (forecastInfos != null && forecastInfos.Count >= 3)
                     {
-                        // Reset the current forecast index
                         currentForecastIndex = 0;
 
-                        // Display forecast information for the first 3 timeslots
                         DisplayCurrentForecast();
                     }
                     else
