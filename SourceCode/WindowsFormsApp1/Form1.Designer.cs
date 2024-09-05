@@ -32,7 +32,7 @@
             this.lbSunrise = new System.Windows.Forms.Label();
             this.lbSunset = new System.Windows.Forms.Label();
             this.resultSunrise = new System.Windows.Forms.Label();
-            this.resulstSunset = new System.Windows.Forms.Label();
+            this.resultSunset = new System.Windows.Forms.Label();
             this.lbForecast = new System.Windows.Forms.Label();
             this.pictureForecast1 = new System.Windows.Forms.PictureBox();
             this.pictureForecast2 = new System.Windows.Forms.PictureBox();
@@ -254,18 +254,18 @@
             this.resultSunrise.TabIndex = 15;
             this.resultSunrise.Text = "N/A";
             // 
-            // resulstSunset
+            // resultSunset
             // 
-            this.resulstSunset.AutoSize = true;
-            this.resulstSunset.BackColor = System.Drawing.Color.Transparent;
-            this.resulstSunset.Font = new System.Drawing.Font("Calibri", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.resulstSunset.ForeColor = System.Drawing.Color.Black;
-            this.resulstSunset.Location = new System.Drawing.Point(915, 315);
-            this.resulstSunset.Name = "resulstSunset";
-            this.resulstSunset.Size = new System.Drawing.Size(70, 39);
-            this.resulstSunset.TabIndex = 16;
-            this.resulstSunset.Text = "N/A";
-            this.resulstSunset.Click += new System.EventHandler(this.resulstSunset_Click);
+            this.resultSunset.AutoSize = true;
+            this.resultSunset.BackColor = System.Drawing.Color.Transparent;
+            this.resultSunset.Font = new System.Drawing.Font("Calibri", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.resultSunset.ForeColor = System.Drawing.Color.Black;
+            this.resultSunset.Location = new System.Drawing.Point(915, 315);
+            this.resultSunset.Name = "resultSunset";
+            this.resultSunset.Size = new System.Drawing.Size(70, 39);
+            this.resultSunset.TabIndex = 16;
+            this.resultSunset.Text = "N/A";
+            this.resultSunset.Click += new System.EventHandler(this.resulstSunset_Click);
             // 
             // lbForecast
             // 
@@ -823,7 +823,7 @@
             this.Controls.Add(this.pictureForecast2);
             this.Controls.Add(this.pictureForecast1);
             this.Controls.Add(this.lbForecast);
-            this.Controls.Add(this.resulstSunset);
+            this.Controls.Add(this.resultSunset);
             this.Controls.Add(this.resultSunrise);
             this.Controls.Add(this.lbSunset);
             this.Controls.Add(this.lbSunrise);
@@ -870,7 +870,7 @@
         private System.Windows.Forms.Label lbSunrise;
         private System.Windows.Forms.Label lbSunset;
         private System.Windows.Forms.Label resultSunrise;
-        private System.Windows.Forms.Label resulstSunset;
+        private System.Windows.Forms.Label resultSunset;
         private System.Windows.Forms.Label lbForecast;
         private System.Windows.Forms.PictureBox pictureForecast1;
         private System.Windows.Forms.PictureBox pictureForecast2;

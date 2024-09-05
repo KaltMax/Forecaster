@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -8,7 +7,7 @@ namespace WeatherApp
 {
     internal class WeatherService
     {
-        private static readonly HttpClient client = new HttpClient();
+        private static readonly HttpClient Client = new HttpClient();
 
         public async Task<WeatherInfo> GetWeatherAsync(string cityName)
         {
@@ -25,8 +24,8 @@ namespace WeatherApp
 
         private async Task<GeoInfo> GetGeoInfoAsync(string cityName)
         {
-            string geoApiUrl = $"http://api.openweathermap.org/geo/1.0/direct?q={cityName}&limit=1&appid=YOUR_API key";
-            var response = await client.GetStringAsync(geoApiUrl);
+            string geoApiUrl = $"http://api.openweathermap.org/geo/1.0/direct?q={cityName}&limit=1&appid=59b74c3580cd255f36583527bdc17c77";
+            var response = await Client.GetStringAsync(geoApiUrl);
             var geoResponse = JsonSerializer.Deserialize<List<GeoInfo>>(response);
 
             if (geoResponse != null && geoResponse.Count > 0)
@@ -41,8 +40,8 @@ namespace WeatherApp
 
         private async Task<WeatherInfo> GetWeatherByCoordinatesAsync(double lat, double lon)
         {
-            string weatherApiUrl = $"http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&units=metric&appid=YOUR_API key";
-            var response = await client.GetStringAsync(weatherApiUrl);
+            string weatherApiUrl = $"http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&units=metric&appid=59b74c3580cd255f36583527bdc17c77";
+            var response = await Client.GetStringAsync(weatherApiUrl);
             var weatherResponse = JsonSerializer.Deserialize<WeatherResponse>(response);
 
             if (weatherResponse == null || weatherResponse.Main == null || weatherResponse.Weather == null || weatherResponse.Weather.Count == 0 || weatherResponse.Wind == null)
@@ -67,8 +66,8 @@ namespace WeatherApp
 
         public async Task<List<ForecastInfo>> GetForecastByCoordinatesAsync(double lat, double lon)
         {
-            string forecastApiUrl = $"http://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&units=metric&appid=YOUR_API key";
-            var response = await client.GetStringAsync(forecastApiUrl);
+            string forecastApiUrl = $"http://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&units=metric&appid=59b74c3580cd255f36583527bdc17c77";
+            var response = await Client.GetStringAsync(forecastApiUrl);
             var forecastResponse = JsonSerializer.Deserialize<ForecastResponse>(response);
 
             if (forecastResponse == null || forecastResponse.List == null || forecastResponse.List.Count < 4)
@@ -90,7 +89,6 @@ namespace WeatherApp
                     DateTime = forecast.Dt
                 });
             }
-
             return forecastInfos;
         }
     }

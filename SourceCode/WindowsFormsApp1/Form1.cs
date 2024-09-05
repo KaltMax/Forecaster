@@ -8,8 +8,8 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
-        private int currentForecastIndex = 0;
-        private List<ForecastInfo> forecastInfos;
+        private int _currentForecastIndex = 0;
+        private List<ForecastInfo> _forecastInfos;
 
         public Form1()
         {
@@ -34,21 +34,21 @@ namespace WindowsFormsApp1
 
                 if (weatherInfo != null)
                 {
-                    resultTemperature.Text = $"{weatherInfo.Temperature} °C";
-                    resultHumidity.Text = $"{weatherInfo.Humidity}%";
-                    resultWindspeed.Text = $"{weatherInfo.WindSpeed} m/s";
+                    resultTemperature.Text = $@"{weatherInfo.Temperature} °C";
+                    resultHumidity.Text = $@"{weatherInfo.Humidity}%";
+                    resultWindspeed.Text = $@"{weatherInfo.WindSpeed} m/s";
                     weatherCondition.Text = weatherInfo.WeatherCondition;
                     resultSunrise.Text = DateTimeOffset.FromUnixTimeSeconds(weatherInfo.Sunrise).ToString("HH:mm");
-                    resulstSunset.Text = DateTimeOffset.FromUnixTimeSeconds(weatherInfo.Sunset).ToString("HH:mm");
+                    resultSunset.Text = DateTimeOffset.FromUnixTimeSeconds(weatherInfo.Sunset).ToString("HH:mm");
 
                     string iconUrl = $"http://openweathermap.org/img/wn/{weatherInfo.Icon}.png";
                     weatherPicture.Load(iconUrl);
 
-                    forecastInfos = await weatherService.GetForecastByCoordinatesAsync(weatherInfo.Latitude, weatherInfo.Longitude);
+                    _forecastInfos = await weatherService.GetForecastByCoordinatesAsync(weatherInfo.Latitude, weatherInfo.Longitude);
 
-                    if (forecastInfos != null && forecastInfos.Count >= 3)
+                    if (_forecastInfos != null && _forecastInfos.Count >= 3)
                     {
-                        currentForecastIndex = 0;
+                        _currentForecastIndex = 0;
 
                         DisplayCurrentForecast();
                     }
@@ -70,16 +70,16 @@ namespace WindowsFormsApp1
 
         private void DisplayCurrentForecast()
         {
-            if (forecastInfos == null || forecastInfos.Count < 3)
+            if (_forecastInfos == null || _forecastInfos.Count < 3)
                 return;
 
-            int maxIndex = forecastInfos.Count - 1;
+            int maxIndex = _forecastInfos.Count - 1;
 
-            DisplayForecast(forecastInfos[currentForecastIndex], pictureForecast1, weatherConditionForecast1, forecastResultTemperature1, forecastResultHumidity1, forecastResultWindspeed1, resultForecastTime1, resultForecastDate1);
+            DisplayForecast(_forecastInfos[_currentForecastIndex], pictureForecast1, weatherConditionForecast1, forecastResultTemperature1, forecastResultHumidity1, forecastResultWindspeed1, resultForecastTime1, resultForecastDate1);
 
-            DisplayForecast(forecastInfos[Math.Min(currentForecastIndex + 1, maxIndex)], pictureForecast2, weatherConditionForecast2, forecastResultTemperature2, forecastResultHumidity2, forecastResultWindspeed2, resultForecastTime2, resultForecastDate2);
+            DisplayForecast(_forecastInfos[Math.Min(_currentForecastIndex + 1, maxIndex)], pictureForecast2, weatherConditionForecast2, forecastResultTemperature2, forecastResultHumidity2, forecastResultWindspeed2, resultForecastTime2, resultForecastDate2);
 
-            DisplayForecast(forecastInfos[Math.Min(currentForecastIndex + 2, maxIndex)], pictureForecast3, weatherConditionForecast3, forecastResultTemperature3, forecastResultHumidity3, forecastResultWindspeed3, resultForecastTime3, resultForecastDate3);
+            DisplayForecast(_forecastInfos[Math.Min(_currentForecastIndex + 2, maxIndex)], pictureForecast3, weatherConditionForecast3, forecastResultTemperature3, forecastResultHumidity3, forecastResultWindspeed3, resultForecastTime3, resultForecastDate3);
         }
 
         private void DisplayForecast(ForecastInfo forecastInfo, PictureBox pictureBox, Label conditionLabel, Label temperatureLabel, Label humidityLabel, Label windspeedLabel, Label timeLabel, Label dateLabel)
@@ -87,9 +87,9 @@ namespace WindowsFormsApp1
             dateLabel.Text = DateTimeOffset.FromUnixTimeSeconds(forecastInfo.DateTime).ToString("dd.MM.yyyy");
             timeLabel.Text = DateTimeOffset.FromUnixTimeSeconds(forecastInfo.DateTime).ToString("HH:mm");
             conditionLabel.Text = forecastInfo.WeatherCondition;
-            temperatureLabel.Text = $"{forecastInfo.Temperature} °C";
-            humidityLabel.Text = $"{forecastInfo.Humidity}%";
-            windspeedLabel.Text = $"{forecastInfo.WindSpeed} m/s";
+            temperatureLabel.Text = $@"{forecastInfo.Temperature} °C";
+            humidityLabel.Text = $@"{forecastInfo.Humidity}%";
+            windspeedLabel.Text = $@"{forecastInfo.WindSpeed} m/s";
 
             string iconUrl = $"http://openweathermap.org/img/wn/{forecastInfo.Icon}.png";
             pictureBox.Load(iconUrl);
@@ -97,18 +97,18 @@ namespace WindowsFormsApp1
 
         private void nextButton_Click(object sender, EventArgs e)
         {
-            if (forecastInfos != null && currentForecastIndex + 3 < forecastInfos.Count)
+            if (_forecastInfos != null && _currentForecastIndex + 3 < _forecastInfos.Count)
             {
-                currentForecastIndex += 3;
+                _currentForecastIndex += 3;
                 DisplayCurrentForecast();
             }
         }
 
         private void prevButton_Click(object sender, EventArgs e)
         {
-            if (forecastInfos != null && currentForecastIndex - 3 >= 0)
+            if (_forecastInfos != null && _currentForecastIndex - 3 >= 0)
             {
-                currentForecastIndex -= 3;
+                _currentForecastIndex -= 3;
                 DisplayCurrentForecast();
             }
         }

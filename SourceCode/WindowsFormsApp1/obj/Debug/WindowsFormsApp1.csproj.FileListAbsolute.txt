@@ -1,12 +1,7 @@
-C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe.config
-C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe
-C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.pdb
 C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.AssemblyReference.cache
 C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Properties.Resources.resources
 C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.GenerateResource.cache
 C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.CoreCompileInputs.cache
-C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.exe
-C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb
 C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Form1.resources
 C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
 C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\System.Buffers.dll
@@ -85,3 +80,8 @@ C:\SchuleLokal\WeatherForecaster\WeatherApp\weatherApp\WindowsFormsApp1\obj\Debu
 C:\SchuleLokal\WeatherForecaster\WeatherApp\weatherApp\WindowsFormsApp1\obj\Debug\WindowsF.A1EEDF9B.Up2Date
 C:\SchuleLokal\WeatherForecaster\WeatherApp\weatherApp\WindowsFormsApp1\obj\Debug\Forecaster.exe
 C:\SchuleLokal\WeatherForecaster\WeatherApp\weatherApp\WindowsFormsApp1\obj\Debug\Forecaster.pdb
+C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\Forecaster.exe.config
+C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\Forecaster.exe
+C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\bin\Debug\Forecaster.pdb
+C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\obj\Debug\Forecaster.exe
+C:\SeeSharp Projekte\WeatherApp\weatherApp\WindowsFormsApp1\obj\Debug\Forecaster.pdb
