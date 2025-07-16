@@ -1,12 +1,11 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System;
 using System.IO;
 
-namespace Forecaster
+namespace Forecaster.Utility
 {
     internal static class ConfigurationHelper
     {
-        private static IConfiguration _configuration;
+        private static readonly IConfiguration _configuration;
 
         static ConfigurationHelper()
         {

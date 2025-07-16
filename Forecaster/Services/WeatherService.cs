@@ -4,12 +4,13 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Forecaster.Models;
+using Forecaster.Utility;
 
 namespace Forecaster.Services
 {
     internal class WeatherService
     {
-        private static readonly HttpClient Client = new HttpClient();
+        private static readonly HttpClient Client = new();
         private static readonly string ApiKey = ConfigurationHelper.GetApiKey();
 
         public WeatherService()

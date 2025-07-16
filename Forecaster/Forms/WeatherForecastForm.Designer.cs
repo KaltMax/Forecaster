@@ -1,6 +1,6 @@
-namespace Forecaster
+namespace Forecaster.Forms
 {
-    partial class WeatheForecastForm
+    partial class WeatherForecastForm
     {
         private System.ComponentModel.IContainer components = null;
 
@@ -17,7 +17,7 @@ namespace Forecaster
 
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WeatheForecastForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WeatherForecastForm));
             this.lbCity = new System.Windows.Forms.Label();
             this.tbCity = new System.Windows.Forms.TextBox();
             this.searchButton = new System.Windows.Forms.Button();
@@ -102,7 +102,6 @@ namespace Forecaster
             this.tbCity.Name = "tbCity";
             this.tbCity.Size = new System.Drawing.Size(588, 47);
             this.tbCity.TabIndex = 1;
-            this.tbCity.TextChanged += new System.EventHandler(this.textBox1_TextChanged_1);
             this.tbCity.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbCity_KeyDown);
             // 
             // searchButton
@@ -204,7 +203,6 @@ namespace Forecaster
             this.weatherCondition.Size = new System.Drawing.Size(268, 39);
             this.weatherCondition.TabIndex = 10;
             this.weatherCondition.Text = "Weather Condition";
-            this.weatherCondition.Click += new System.EventHandler(this.weatherDescription_Click);
             // 
             // weatherPicture
             // 
@@ -265,7 +263,6 @@ namespace Forecaster
             this.resultSunset.Size = new System.Drawing.Size(70, 39);
             this.resultSunset.TabIndex = 16;
             this.resultSunset.Text = "N/A";
-            this.resultSunset.Click += new System.EventHandler(this.resulstSunset_Click);
             // 
             // lbForecast
             // 
@@ -278,7 +275,6 @@ namespace Forecaster
             this.lbForecast.Size = new System.Drawing.Size(138, 39);
             this.lbForecast.TabIndex = 17;
             this.lbForecast.Text = "Forecast:";
-            this.lbForecast.Click += new System.EventHandler(this.label1_Click_3);
             // 
             // pictureForecast1
             // 
@@ -714,7 +710,6 @@ namespace Forecaster
             this.resultForecastDate2.Size = new System.Drawing.Size(53, 29);
             this.resultForecastDate2.TabIndex = 59;
             this.resultForecastDate2.Text = "N/A";
-            this.resultForecastDate2.Click += new System.EventHandler(this.label3_Click);
             // 
             // lbForecastDate2
             // 

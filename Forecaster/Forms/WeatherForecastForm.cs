@@ -5,24 +5,24 @@ using System.Windows.Forms;
 using Forecaster.Models;
 using Forecaster.Services;
 
-namespace Forecaster
+namespace Forecaster.Forms
 {
-    public partial class WeatheForecastForm : Form
+    public partial class WeatherForecastForm : Form
     {
         private int _currentForecastIndex;
         private List<ForecastInfo> _forecastInfos;
 
-        public WeatheForecastForm()
+        public WeatherForecastForm()
         {
             InitializeComponent();
-            this.AutoScaleMode = AutoScaleMode.Dpi;
+            AutoScaleMode = AutoScaleMode.Dpi;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.ClientSize = new Size(1280, 720);
-            this.StartPosition = FormStartPosition.CenterScreen;
-            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            ClientSize = new Size(1280, 720);
+            StartPosition = FormStartPosition.CenterScreen;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
         }
 
         private async void searchButton_Click(object sender, EventArgs e)
@@ -122,27 +122,5 @@ namespace Forecaster
                 e.SuppressKeyPress = true;
             }
         }
-
-        private void textBox1_TextChanged(object sender, EventArgs e) { }
-
-        private void label1_Click(object sender, EventArgs e) { }
-
-        private void button1_Click(object sender, EventArgs e) { }
-
-        private void textBox1_TextChanged_1(object sender, EventArgs e) { }
-
-        private void label1_Click_1(object sender, EventArgs e) { }
-
-        private void label1_Click_2(object sender, EventArgs e) { }
-
-        private void label2_Click(object sender, EventArgs e) { }
-
-        private void weatherDescription_Click(object sender, EventArgs e) { }
-
-        private void resulstSunset_Click(object sender, EventArgs e) { }
-
-        private void label1_Click_3(object sender, EventArgs e) { }
-
-        private void label3_Click(object sender, EventArgs e) { }
     }
 }
