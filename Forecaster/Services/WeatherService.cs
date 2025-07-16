@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Forecaster.Models;
 
-namespace WeatherApp
+namespace Forecaster.Services
 {
     internal class WeatherService
     {
         private static readonly HttpClient Client = new HttpClient();
-        private static readonly string ApiKey = "ENTER_YOUR_API_KEY_HERE";
+        private static readonly string ApiKey = ConfigurationHelper.GetApiKey();
 
         public WeatherService()
         {
-            if (string.IsNullOrWhiteSpace(ApiKey) || ApiKey == "ENTER_YOUR_API_KEY_HERE")
+            if (string.IsNullOrWhiteSpace(ApiKey))
             {
-                throw new InvalidOperationException("API key for OpenWeatherMap is missing or not set.");
+                throw new InvalidOperationException("API key for OpenWeatherMap is missing or not set. Please check your appsettings.json file.");
             }
         }
 

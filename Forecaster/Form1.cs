@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using WeatherApp;
+using Forecaster.Models;
+using Forecaster.Services;
 
-namespace WindowsFormsApp1
+namespace Forecaster
 {
     public partial class Form1 : Form
     {
-        private int _currentForecastIndex = 0;
+        private int _currentForecastIndex;
         private List<ForecastInfo> _forecastInfos;
 
         public Form1()

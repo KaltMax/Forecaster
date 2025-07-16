@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApp1
+namespace Forecaster
 {
     partial class Form1
     {
@@ -108,7 +108,7 @@
             // searchButton
             // 
             this.searchButton.BackColor = System.Drawing.Color.Transparent;
-            this.searchButton.BackgroundImage = global::WeatherApp.Properties.Resources.buttonBackground;
+            this.searchButton.BackgroundImage = global::Forecaster.Properties.Resources.buttonBackground;
             this.searchButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.searchButton.Font = new System.Drawing.Font("Calibri", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.searchButton.ForeColor = System.Drawing.Color.Black;
@@ -209,7 +209,7 @@
             // weatherPicture
             // 
             this.weatherPicture.BackColor = System.Drawing.Color.Transparent;
-            this.weatherPicture.BackgroundImage = global::WeatherApp.Properties.Resources.iconBackground;
+            this.weatherPicture.BackgroundImage = global::Forecaster.Properties.Resources.iconBackground;
             this.weatherPicture.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.weatherPicture.Location = new System.Drawing.Point(219, 115);
             this.weatherPicture.Name = "weatherPicture";
@@ -283,7 +283,7 @@
             // pictureForecast1
             // 
             this.pictureForecast1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureForecast1.BackgroundImage = global::WeatherApp.Properties.Resources.iconBackgroundSmall;
+            this.pictureForecast1.BackgroundImage = global::Forecaster.Properties.Resources.iconBackgroundSmall;
             this.pictureForecast1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureForecast1.Location = new System.Drawing.Point(219, 469);
             this.pictureForecast1.Name = "pictureForecast1";
@@ -295,7 +295,7 @@
             // pictureForecast2
             // 
             this.pictureForecast2.BackColor = System.Drawing.Color.Transparent;
-            this.pictureForecast2.BackgroundImage = global::WeatherApp.Properties.Resources.iconBackgroundSmall;
+            this.pictureForecast2.BackgroundImage = global::Forecaster.Properties.Resources.iconBackgroundSmall;
             this.pictureForecast2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureForecast2.Location = new System.Drawing.Point(552, 469);
             this.pictureForecast2.Name = "pictureForecast2";
@@ -307,7 +307,7 @@
             // pictureForecast3
             // 
             this.pictureForecast3.BackColor = System.Drawing.Color.Transparent;
-            this.pictureForecast3.BackgroundImage = global::WeatherApp.Properties.Resources.iconBackgroundSmall;
+            this.pictureForecast3.BackgroundImage = global::Forecaster.Properties.Resources.iconBackgroundSmall;
             this.pictureForecast3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureForecast3.Location = new System.Drawing.Point(885, 469);
             this.pictureForecast3.Name = "pictureForecast3";
@@ -652,7 +652,7 @@
             // nextButton
             // 
             this.nextButton.BackColor = System.Drawing.Color.Transparent;
-            this.nextButton.BackgroundImage = global::WeatherApp.Properties.Resources.buttonBackground;
+            this.nextButton.BackgroundImage = global::Forecaster.Properties.Resources.buttonBackground;
             this.nextButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.nextButton.Font = new System.Drawing.Font("Calibri", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nextButton.ForeColor = System.Drawing.Color.Black;
@@ -667,7 +667,7 @@
             // prevButton
             // 
             this.prevButton.BackColor = System.Drawing.Color.Transparent;
-            this.prevButton.BackgroundImage = global::WeatherApp.Properties.Resources.buttonBackground;
+            this.prevButton.BackgroundImage = global::Forecaster.Properties.Resources.buttonBackground;
             this.prevButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.prevButton.Font = new System.Drawing.Font("Calibri", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.prevButton.ForeColor = System.Drawing.Color.Black;
@@ -766,7 +766,7 @@
             // forecasterFont
             // 
             this.forecasterFont.BackColor = System.Drawing.Color.Transparent;
-            this.forecasterFont.Image = global::WeatherApp.Properties.Resources.forecaster;
+            this.forecasterFont.Image = global::Forecaster.Properties.Resources.forecaster;
             this.forecasterFont.Location = new System.Drawing.Point(1, 141);
             this.forecasterFont.Name = "forecasterFont";
             this.forecasterFont.Size = new System.Drawing.Size(170, 27);
@@ -779,7 +779,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.BackgroundImage = global::WeatherApp.Properties.Resources.background;
+            this.BackgroundImage = global::Forecaster.Properties.Resources.background;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1280, 720);
             this.Controls.Add(this.forecasterFont);
