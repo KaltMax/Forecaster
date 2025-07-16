@@ -7,12 +7,12 @@ using Forecaster.Services;
 
 namespace Forecaster
 {
-    public partial class Form1 : Form
+    public partial class WeatheForecastForm : Form
     {
         private int _currentForecastIndex;
         private List<ForecastInfo> _forecastInfos;
 
-        public Form1()
+        public WeatheForecastForm()
         {
             InitializeComponent();
             this.AutoScaleMode = AutoScaleMode.Dpi;

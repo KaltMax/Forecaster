@@ -1,6 +1,6 @@
 namespace Forecaster
 {
-    partial class Form1
+    partial class WeatheForecastForm
     {
         private System.ComponentModel.IContainer components = null;
 
@@ -17,7 +17,7 @@ namespace Forecaster
 
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WeatheForecastForm));
             this.lbCity = new System.Windows.Forms.Label();
             this.tbCity = new System.Windows.Forms.TextBox();
             this.searchButton = new System.Windows.Forms.Button();
