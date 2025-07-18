@@ -52,7 +52,7 @@ namespace Forecaster.Services
             var response = await _httpClient.GetStringAsync(weatherApiUrl);
             var weatherResponse = JsonSerializer.Deserialize<WeatherResponse>(response);
 
-            if (weatherResponse == null || weatherResponse.Main == null || weatherResponse.Weather == null || weatherResponse.Weather.Count == 0 || weatherResponse.Wind == null)
+            if (weatherResponse?.Main == null || weatherResponse.Weather == null || weatherResponse.Weather.Count == 0 || weatherResponse.Wind == null)
             {
                 return null;
             }
@@ -78,7 +78,7 @@ namespace Forecaster.Services
             var response = await _httpClient.GetStringAsync(forecastApiUrl);
             var forecastResponse = JsonSerializer.Deserialize<ForecastResponse>(response);
 
-            if (forecastResponse == null || forecastResponse.List == null || forecastResponse.List.Count < 4)
+            if (forecastResponse?.List == null || forecastResponse.List.Count < 4)
             {
                 return null;
             }

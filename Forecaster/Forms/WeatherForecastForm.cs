@@ -3,6 +3,7 @@ using Forecaster.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Forecaster.Forms
@@ -10,12 +11,15 @@ namespace Forecaster.Forms
     public partial class WeatherForecastForm : Form
     {
         private readonly IWeatherService _weatherService;
+        private readonly IMessageBoxService _messageBoxService;
         private int _currentForecastIndex;
         private List<ForecastInfo> _forecastInfos;
+        private const int FORECASTS_PER_PAGE = 3;
 
-        public WeatherForecastForm(IWeatherService weatherService)
+        public WeatherForecastForm(IWeatherService weatherService, IMessageBoxService messageBoxService)
         {
             _weatherService = weatherService ?? throw new ArgumentNullException(nameof(weatherService));
+            _messageBoxService = messageBoxService ?? throw new ArgumentNullException(nameof(messageBoxService));
             InitializeComponent();
             AutoScaleMode = AutoScaleMode.Dpi;
         }
@@ -25,47 +29,100 @@ namespace Forecaster.Forms
             ClientSize = new Size(1280, 720);
             StartPosition = FormStartPosition.CenterScreen;
             FormBorderStyle = FormBorderStyle.FixedSingle;
+
+            // Set initial navigation button states
+            UpdateNavigationButtons();
+            tbCity.Focus();
         }
 
         private async void searchButton_Click(object sender, EventArgs e)
         {
-            string cityName = tbCity.Text;
-            if (!string.IsNullOrEmpty(cityName))
+            string cityName = tbCity.Text?.Trim();
+            if (string.IsNullOrEmpty(cityName))
             {
-                WeatherInfo weatherInfo = await _weatherService.GetWeatherAsync(cityName);
+                _messageBoxService.ShowWarning("Please enter a city name.");
+                return;
+            }
 
-                if (weatherInfo != null)
-                {
-                    resultTemperature.Text = $@"{weatherInfo.Temperature} °C";
-                    resultHumidity.Text = $@"{weatherInfo.Humidity}%";
-                    resultWindspeed.Text = $@"{weatherInfo.WindSpeed} m/s";
-                    weatherCondition.Text = weatherInfo.WeatherCondition;
-                    resultSunrise.Text = DateTimeOffset.FromUnixTimeSeconds(weatherInfo.Sunrise).ToString("HH:mm");
-                    resultSunset.Text = DateTimeOffset.FromUnixTimeSeconds(weatherInfo.Sunset).ToString("HH:mm");
+            try
+            {
+                SetLoadingState(true);
+                await LoadWeatherDataAsync(cityName);
+            }
+            catch (Exception ex)
+            {
+                _messageBoxService.ShowError($"An error occurred: {ex.Message}");
+            }
+            finally
+            {
+                SetLoadingState(false);
+            }
+        }
 
-                    string iconUrl = $"http://openweathermap.org/img/wn/{weatherInfo.Icon}.png";
-                    weatherPicture.Load(iconUrl);
+        private void SetLoadingState(bool isLoading)
+        {
+            searchButton.Enabled = !isLoading;
+            searchButton.Text = isLoading ? "Loading..." : "Search";
+            tbCity.Enabled = !isLoading;
+            nextButton.Enabled = !isLoading && CanNavigateNext();
+            prevButton.Enabled = !isLoading && CanNavigatePrevious();
+            Cursor = isLoading ? Cursors.WaitCursor : Cursors.Default;
+        }
 
-                    _forecastInfos = await _weatherService.GetForecastByCoordinatesAsync(weatherInfo.Latitude, weatherInfo.Longitude);
+        private async Task LoadWeatherDataAsync(string cityName)
+        {
+            WeatherInfo weatherInfo = await _weatherService.GetWeatherAsync(cityName);
 
-                    if (_forecastInfos != null && _forecastInfos.Count >= 3)
-                    {
-                        _currentForecastIndex = 0;
-                        DisplayCurrentForecast();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Forecast information could not be retrieved.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Weather information could not be retrieved.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            if (weatherInfo != null)
+            {
+                DisplayWeatherInfo(weatherInfo);
+                await LoadForecastDataAsync(weatherInfo);
             }
             else
             {
-                MessageBox.Show("Please enter a city name.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                _messageBoxService.ShowError("Weather information could not be retrieved.");
+            }
+        }
+
+        private void DisplayWeatherInfo(WeatherInfo weatherInfo)
+        {
+            resultTemperature.Text = $@"{weatherInfo.Temperature:F1} °C";
+            resultHumidity.Text = $@"{weatherInfo.Humidity}%";
+            resultWindspeed.Text = $@"{weatherInfo.WindSpeed:F1} m/s";
+            weatherCondition.Text = weatherInfo.WeatherCondition;
+            resultSunrise.Text = DateTimeOffset.FromUnixTimeSeconds(weatherInfo.Sunrise).ToString("HH:mm");
+            resultSunset.Text = DateTimeOffset.FromUnixTimeSeconds(weatherInfo.Sunset).ToString("HH:mm");
+
+            LoadWeatherIcon(weatherInfo.Icon);
+        }
+
+        private void LoadWeatherIcon(string iconCode)
+        {
+            try
+            {
+                string iconUrl = $"https://openweathermap.org/img/wn/{iconCode}.png";
+                weatherPicture.Load(iconUrl);
+            }
+            catch
+            {
+                // Handle icon loading failure silently
+                weatherPicture.Image = null;
+            }
+        }
+
+        private async Task LoadForecastDataAsync(WeatherInfo weatherInfo)
+        {
+            _forecastInfos = await _weatherService.GetForecastByCoordinatesAsync(weatherInfo.Latitude, weatherInfo.Longitude);
+
+            if (_forecastInfos is { Count: >= 3 })
+            {
+                _currentForecastIndex = 0;
+                DisplayCurrentForecast();
+                UpdateNavigationButtons();
+            }
+            else
+            {
+                _messageBoxService.ShowError("Forecast information could not be retrieved.");
             }
         }
 
@@ -88,35 +145,62 @@ namespace Forecaster.Forms
             dateLabel.Text = DateTimeOffset.FromUnixTimeSeconds(forecastInfo.DateTime).ToString("dd.MM.yyyy");
             timeLabel.Text = DateTimeOffset.FromUnixTimeSeconds(forecastInfo.DateTime).ToString("HH:mm");
             conditionLabel.Text = forecastInfo.WeatherCondition;
-            temperatureLabel.Text = $@"{forecastInfo.Temperature} °C";
+            temperatureLabel.Text = $@"{forecastInfo.Temperature:F1} °C";
             humidityLabel.Text = $@"{forecastInfo.Humidity}%";
-            windspeedLabel.Text = $@"{forecastInfo.WindSpeed} m/s";
+            windspeedLabel.Text = $@"{forecastInfo.WindSpeed:F1} m/s";
 
-            string iconUrl = $"http://openweathermap.org/img/wn/{forecastInfo.Icon}.png";
-            pictureBox.Load(iconUrl);
+            LoadForecastIcon(pictureBox, forecastInfo.Icon);
+        }
+
+        private void LoadForecastIcon(PictureBox pictureBox, string iconCode)
+        {
+            try
+            {
+                string iconUrl = $"https://openweathermap.org/img/wn/{iconCode}.png";
+                pictureBox.Load(iconUrl);
+            }
+            catch
+            {
+                // Handle icon loading failure silently
+                pictureBox.Image = null;
+            }
         }
 
         private void nextButton_Click(object sender, EventArgs e)
         {
-            if (_forecastInfos != null && _currentForecastIndex + 3 < _forecastInfos.Count)
+            if (CanNavigateNext())
             {
-                _currentForecastIndex += 3;
+                _currentForecastIndex += FORECASTS_PER_PAGE;
                 DisplayCurrentForecast();
+                UpdateNavigationButtons();
             }
         }
 
         private void prevButton_Click(object sender, EventArgs e)
         {
-            if (_forecastInfos != null && _currentForecastIndex - 3 >= 0)
+            if (CanNavigatePrevious())
             {
-                _currentForecastIndex -= 3;
+                _currentForecastIndex -= FORECASTS_PER_PAGE;
                 DisplayCurrentForecast();
+                UpdateNavigationButtons();
             }
+        }
+
+        private bool CanNavigateNext() =>
+            _forecastInfos != null && _currentForecastIndex + FORECASTS_PER_PAGE < _forecastInfos.Count;
+
+        private bool CanNavigatePrevious() =>
+            _forecastInfos != null && _currentForecastIndex - FORECASTS_PER_PAGE >= 0;
+
+        private void UpdateNavigationButtons()
+        {
+            nextButton.Enabled = CanNavigateNext();
+            prevButton.Enabled = CanNavigatePrevious();
         }
 
         private void tbCity_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.Enter && !string.IsNullOrWhiteSpace(tbCity.Text))
             {
                 searchButton.PerformClick();
                 e.SuppressKeyPress = true;

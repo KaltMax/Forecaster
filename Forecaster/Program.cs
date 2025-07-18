@@ -19,14 +19,13 @@ namespace Forecaster
                 {
                     services.AddHttpClient<IWeatherService, WeatherService>();
                     services.AddTransient<WeatherForecastForm>();
+                    services.AddTransient<IMessageBoxService, MessageBoxService>();
                 })
                 .Build();
 
-            using (var scope = host.Services.CreateScope())
-            {
-                var form = scope.ServiceProvider.GetRequiredService<WeatherForecastForm>();
-                Application.Run(form);
-            }
+            using var scope = host.Services.CreateScope();
+            var form = scope.ServiceProvider.GetRequiredService<WeatherForecastForm>();
+            Application.Run(form);
         }
     }
 }
