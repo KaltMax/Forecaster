@@ -15,7 +15,7 @@ namespace Forecaster
             Application.SetCompatibleTextRenderingDefault(false);
 
             var host = Host.CreateDefaultBuilder()
-                .ConfigureServices((context, services) =>
+                .ConfigureServices((_, services) =>
                 {
                     services.AddHttpClient<IWeatherService, WeatherService>();
                     services.AddTransient<IMessageBoxService, MessageBoxService>();

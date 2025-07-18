@@ -15,7 +15,7 @@ namespace Forecaster.Forms
         private readonly IMessageBoxService _messageBoxService;
         private int _currentForecastIndex;
         private List<ForecastInfo> _forecastInfos;
-        private const int FORECASTS_PER_PAGE = 3;
+        private const int ForecastsPerPage = 3;
 
         public WeatherForecastForm(IWeatherService weatherService, IForecastService forecastService, IMessageBoxService messageBoxService)
         {
@@ -39,7 +39,7 @@ namespace Forecaster.Forms
 
         private async void searchButton_Click(object sender, EventArgs e)
         {
-            string cityName = tbCity.Text?.Trim();
+            string cityName = tbCity.Text.Trim();
             if (string.IsNullOrEmpty(cityName))
             {
                 _messageBoxService.ShowWarning("Please enter a city name.");
@@ -198,7 +198,7 @@ namespace Forecaster.Forms
         {
             if (CanNavigateNext())
             {
-                _currentForecastIndex += FORECASTS_PER_PAGE;
+                _currentForecastIndex += ForecastsPerPage;
                 DisplayCurrentForecast();
                 UpdateNavigationButtons();
             }
@@ -208,17 +208,17 @@ namespace Forecaster.Forms
         {
             if (CanNavigatePrevious())
             {
-                _currentForecastIndex -= FORECASTS_PER_PAGE;
+                _currentForecastIndex -= ForecastsPerPage;
                 DisplayCurrentForecast();
                 UpdateNavigationButtons();
             }
         }
 
         private bool CanNavigateNext() =>
-            _forecastInfos != null && _currentForecastIndex + FORECASTS_PER_PAGE < _forecastInfos.Count;
+            _forecastInfos != null && _currentForecastIndex + ForecastsPerPage < _forecastInfos.Count;
 
         private bool CanNavigatePrevious() =>
-            _forecastInfos != null && _currentForecastIndex - FORECASTS_PER_PAGE >= 0;
+            _forecastInfos != null && _currentForecastIndex - ForecastsPerPage >= 0;
 
         private void UpdateNavigationButtons()
         {

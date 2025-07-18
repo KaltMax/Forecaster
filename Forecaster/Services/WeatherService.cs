@@ -27,7 +27,7 @@ namespace Forecaster.Services
             {
                 if (string.IsNullOrWhiteSpace(cityName))
                 {
-                    throw new ArgumentException("City name cannot be null or empty.", nameof(cityName));
+                    throw new ArgumentException(@"City name cannot be null or empty.", nameof(cityName));
                 }
 
                 var geoInfo = await _geoInfoService.GetGeoInfoAsync(cityName);
