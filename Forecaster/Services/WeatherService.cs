@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Accessibility;
 using Forecaster.Models;
 using Forecaster.Services.Interfaces;
 
@@ -13,14 +14,15 @@ namespace Forecaster.Services
     {
         private readonly HttpClient _httpClient;
         private readonly IOpenWeatherMapUrlBuilder _urlBuilder;
-        private readonly string _apiKey;
+        private readonly IGeoInfoService _geoInfoService;
 
         private const int MinimumForecastCount = 4;
 
-        public WeatherService(HttpClient httpClient, IOpenWeatherMapUrlBuilder urlBuilder)
+        public WeatherService(HttpClient httpClient, IOpenWeatherMapUrlBuilder urlBuilder, IGeoInfoService geoInfoService)
         {
             _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
             _urlBuilder = urlBuilder ?? throw new ArgumentNullException(nameof(urlBuilder));
+            _geoInfoService = geoInfoService ?? throw new ArgumentNullException(nameof(geoInfoService));
         }
 
         public async Task<WeatherInfo> GetWeatherAsync(string cityName)
@@ -32,7 +34,7 @@ namespace Forecaster.Services
                     throw new ArgumentException("City name cannot be null or empty.", nameof(cityName));
                 }
                 
-                var geoInfo = await GetGeoInfoAsync(cityName);
+                var geoInfo = await _geoInfoService.GetGeoInfoAsync(cityName);
                 if (geoInfo == null)
                 {
                     return null;
@@ -52,30 +54,6 @@ namespace Forecaster.Services
             catch (JsonException ex)
             {
                 throw new InvalidOperationException($"Failed to parse weather data for {cityName}.", ex);
-            }
-        }
-
-        private async Task<GeoInfo> GetGeoInfoAsync(string cityName)
-        {
-            try
-            {
-                string geoApiUrl = _urlBuilder.BuildGeoApiUrl(cityName);
-
-                using var response = await _httpClient.GetAsync(geoApiUrl);
-                response.EnsureSuccessStatusCode();
-
-                var responseContent = await response.Content.ReadAsStringAsync();
-                var geoResponse = JsonSerializer.Deserialize<List<GeoInfo>>(responseContent);
-
-                return geoResponse?.Count > 0 ? geoResponse[0] : null;
-            }
-            catch (HttpRequestException)
-            {
-                throw;
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidOperationException($"Failed to get geographic information for {cityName}.", ex);
             }
         }
 
