@@ -18,8 +18,10 @@ namespace Forecaster
                 .ConfigureServices((context, services) =>
                 {
                     services.AddHttpClient<IWeatherService, WeatherService>();
-                    services.AddTransient<WeatherForecastForm>();
                     services.AddTransient<IMessageBoxService, MessageBoxService>();
+                    services.AddTransient<IOpenWeatherMapUrlBuilder, OpenWeatherMapUrlBuilder>();
+                    services.AddHttpClient<IWeatherService, WeatherService>();
+                    services.AddTransient<WeatherForecastForm>();
                 })
                 .Build();
 

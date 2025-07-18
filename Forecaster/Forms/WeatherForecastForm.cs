@@ -51,7 +51,7 @@ namespace Forecaster.Forms
             }
             catch (Exception ex)
             {
-                _messageBoxService.ShowError($"An error occurred: {ex.Message}");
+                _messageBoxService.ShowError($"An unexpected error occurred: {ex.Message}");
             }
             finally
             {
@@ -71,16 +71,31 @@ namespace Forecaster.Forms
 
         private async Task LoadWeatherDataAsync(string cityName)
         {
-            WeatherInfo weatherInfo = await _weatherService.GetWeatherAsync(cityName);
+            try
+            {
+                WeatherInfo weatherInfo = await _weatherService.GetWeatherAsync(cityName);
 
-            if (weatherInfo != null)
-            {
-                DisplayWeatherInfo(weatherInfo);
-                await LoadForecastDataAsync(weatherInfo);
+                if (weatherInfo != null)
+                {
+                    DisplayWeatherInfo(weatherInfo);
+                    await LoadForecastDataAsync(weatherInfo);
+                }
+                else
+                {
+                    _messageBoxService.ShowError("Weather information could not be retrieved. Please check the city name and try again.");
+                }
             }
-            else
+            catch (ArgumentException ex)
             {
-                _messageBoxService.ShowError("Weather information could not be retrieved.");
+                _messageBoxService.ShowWarning($"Invalid input: {ex.Message}");
+            }
+            catch (InvalidOperationException ex)
+            {
+                _messageBoxService.ShowError($"Service error: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                _messageBoxService.ShowError($"An unexpected error occurred while retrieving weather data: {ex.Message}");
             }
         }
 
@@ -112,17 +127,28 @@ namespace Forecaster.Forms
 
         private async Task LoadForecastDataAsync(WeatherInfo weatherInfo)
         {
-            _forecastInfos = await _weatherService.GetForecastByCoordinatesAsync(weatherInfo.Latitude, weatherInfo.Longitude);
+            try
+            {
+                _forecastInfos = await _weatherService.GetForecastByCoordinatesAsync(weatherInfo.Latitude, weatherInfo.Longitude);
 
-            if (_forecastInfos is { Count: >= 3 })
-            {
-                _currentForecastIndex = 0;
-                DisplayCurrentForecast();
-                UpdateNavigationButtons();
+                if (_forecastInfos is { Count: >= 3 })
+                {
+                    _currentForecastIndex = 0;
+                    DisplayCurrentForecast();
+                    UpdateNavigationButtons();
+                }
+                else
+                {
+                    _messageBoxService.ShowError("Forecast information could not be retrieved. Please try again later.");
+                }
             }
-            else
+            catch (InvalidOperationException ex)
             {
-                _messageBoxService.ShowError("Forecast information could not be retrieved.");
+                _messageBoxService.ShowError($"Forecast service error: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                _messageBoxService.ShowError($"An unexpected error occurred while retrieving forecast data: {ex.Message}");
             }
         }
 
