@@ -4,18 +4,22 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Forecaster.Models;
+using Forecaster.Services.Interfaces;
 using Forecaster.Utility;
 
 namespace Forecaster.Services
 {
-    internal class WeatherService
+    public class WeatherService : IWeatherService
     {
-        private static readonly HttpClient Client = new();
-        private static readonly string ApiKey = ConfigurationHelper.GetApiKey();
+        private readonly HttpClient _httpClient;
+        private readonly string _apiKey;
 
-        public WeatherService()
+        public WeatherService(HttpClient httpClient)
         {
-            if (string.IsNullOrWhiteSpace(ApiKey))
+            _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
+            _apiKey = ConfigurationHelper.GetApiKey();
+
+            if (string.IsNullOrWhiteSpace(_apiKey))
             {
                 throw new InvalidOperationException("API key for OpenWeatherMap is missing or not set. Please check your appsettings.json file.");
             }
@@ -36,16 +40,16 @@ namespace Forecaster.Services
 
         private async Task<GeoInfo> GetGeoInfoAsync(string cityName)
         {
-            string geoApiUrl = $"http://api.openweathermap.org/geo/1.0/direct?q={cityName}&limit=1&appid={ApiKey}";
-            var response = await Client.GetStringAsync(geoApiUrl);
+            string geoApiUrl = $"http://api.openweathermap.org/geo/1.0/direct?q={cityName}&limit=1&appid={_apiKey}";
+            var response = await _httpClient.GetStringAsync(geoApiUrl);
             var geoResponse = JsonSerializer.Deserialize<List<GeoInfo>>(response);
             return geoResponse?.Count > 0 ? geoResponse[0] : null;
         }
 
         private async Task<WeatherInfo> GetWeatherByCoordinatesAsync(double lat, double lon)
         {
-            string weatherApiUrl = $"http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&units=metric&appid={ApiKey}";
-            var response = await Client.GetStringAsync(weatherApiUrl);
+            string weatherApiUrl = $"http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&units=metric&appid={_apiKey}";
+            var response = await _httpClient.GetStringAsync(weatherApiUrl);
             var weatherResponse = JsonSerializer.Deserialize<WeatherResponse>(response);
 
             if (weatherResponse == null || weatherResponse.Main == null || weatherResponse.Weather == null || weatherResponse.Weather.Count == 0 || weatherResponse.Wind == null)
@@ -70,8 +74,8 @@ namespace Forecaster.Services
 
         public async Task<List<ForecastInfo>> GetForecastByCoordinatesAsync(double lat, double lon)
         {
-            string forecastApiUrl = $"http://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&units=metric&appid={ApiKey}";
-            var response = await Client.GetStringAsync(forecastApiUrl);
+            string forecastApiUrl = $"http://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&units=metric&appid={_apiKey}";
+            var response = await _httpClient.GetStringAsync(forecastApiUrl);
             var forecastResponse = JsonSerializer.Deserialize<ForecastResponse>(response);
 
             if (forecastResponse == null || forecastResponse.List == null || forecastResponse.List.Count < 4)

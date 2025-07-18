@@ -1,24 +1,26 @@
-﻿using System;
+﻿using Forecaster.Models;
+using Forecaster.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using Forecaster.Models;
-using Forecaster.Services;
 
 namespace Forecaster.Forms
 {
     public partial class WeatherForecastForm : Form
     {
+        private readonly IWeatherService _weatherService;
         private int _currentForecastIndex;
         private List<ForecastInfo> _forecastInfos;
 
-        public WeatherForecastForm()
+        public WeatherForecastForm(IWeatherService weatherService)
         {
+            _weatherService = weatherService ?? throw new ArgumentNullException(nameof(weatherService));
             InitializeComponent();
             AutoScaleMode = AutoScaleMode.Dpi;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void WeatherForecastForm_Load(object sender, EventArgs e)
         {
             ClientSize = new Size(1280, 720);
             StartPosition = FormStartPosition.CenterScreen;
@@ -30,8 +32,7 @@ namespace Forecaster.Forms
             string cityName = tbCity.Text;
             if (!string.IsNullOrEmpty(cityName))
             {
-                WeatherService weatherService = new WeatherService();
-                WeatherInfo weatherInfo = await weatherService.GetWeatherAsync(cityName);
+                WeatherInfo weatherInfo = await _weatherService.GetWeatherAsync(cityName);
 
                 if (weatherInfo != null)
                 {
@@ -45,12 +46,11 @@ namespace Forecaster.Forms
                     string iconUrl = $"http://openweathermap.org/img/wn/{weatherInfo.Icon}.png";
                     weatherPicture.Load(iconUrl);
 
-                    _forecastInfos = await weatherService.GetForecastByCoordinatesAsync(weatherInfo.Latitude, weatherInfo.Longitude);
+                    _forecastInfos = await _weatherService.GetForecastByCoordinatesAsync(weatherInfo.Latitude, weatherInfo.Longitude);
 
                     if (_forecastInfos != null && _forecastInfos.Count >= 3)
                     {
                         _currentForecastIndex = 0;
-
                         DisplayCurrentForecast();
                     }
                     else

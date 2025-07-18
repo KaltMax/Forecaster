@@ -1,5 +1,9 @@
 ﻿using System.Windows.Forms;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Forecaster.Forms;
+using Forecaster.Services;
+using Forecaster.Services.Interfaces;
 
 namespace Forecaster
 {
@@ -9,7 +13,20 @@ namespace Forecaster
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new WeatherForecastForm());
+
+            var host = Host.CreateDefaultBuilder()
+                .ConfigureServices((context, services) =>
+                {
+                    services.AddHttpClient<IWeatherService, WeatherService>();
+                    services.AddTransient<WeatherForecastForm>();
+                })
+                .Build();
+
+            using (var scope = host.Services.CreateScope())
+            {
+                var form = scope.ServiceProvider.GetRequiredService<WeatherForecastForm>();
+                Application.Run(form);
+            }
         }
     }
 }

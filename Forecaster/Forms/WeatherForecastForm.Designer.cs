@@ -837,7 +837,7 @@ namespace Forecaster.Forms
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Forecaster";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.WeatherForecastForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.weatherPicture)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureForecast1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureForecast2)).EndInit();
