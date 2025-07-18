@@ -11,14 +11,16 @@ namespace Forecaster.Forms
     public partial class WeatherForecastForm : Form
     {
         private readonly IWeatherService _weatherService;
+        private readonly IForecastService _forecastService;
         private readonly IMessageBoxService _messageBoxService;
         private int _currentForecastIndex;
         private List<ForecastInfo> _forecastInfos;
         private const int FORECASTS_PER_PAGE = 3;
 
-        public WeatherForecastForm(IWeatherService weatherService, IMessageBoxService messageBoxService)
+        public WeatherForecastForm(IWeatherService weatherService, IForecastService forecastService, IMessageBoxService messageBoxService)
         {
             _weatherService = weatherService ?? throw new ArgumentNullException(nameof(weatherService));
+            _forecastService = forecastService ?? throw new ArgumentNullException(nameof(forecastService));
             _messageBoxService = messageBoxService ?? throw new ArgumentNullException(nameof(messageBoxService));
             InitializeComponent();
             AutoScaleMode = AutoScaleMode.Dpi;
@@ -129,7 +131,7 @@ namespace Forecaster.Forms
         {
             try
             {
-                _forecastInfos = await _weatherService.GetForecastByCoordinatesAsync(weatherInfo.Latitude, weatherInfo.Longitude);
+                _forecastInfos = await _forecastService.GetForecastByCoordinatesAsync(weatherInfo.Latitude, weatherInfo.Longitude);
 
                 if (_forecastInfos is { Count: >= 3 })
                 {

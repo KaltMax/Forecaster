@@ -21,6 +21,8 @@ namespace Forecaster
                     services.AddTransient<IMessageBoxService, MessageBoxService>();
                     services.AddTransient<IOpenWeatherMapUrlBuilder, OpenWeatherMapUrlBuilder>();
                     services.AddHttpClient<IWeatherService, WeatherService>();
+                    services.AddHttpClient<IForecastService, ForecastService>();
+                    services.AddTransient<IGeoInfoService, GeoInfoService>();
                     services.AddTransient<WeatherForecastForm>();
                 })
                 .Build();
