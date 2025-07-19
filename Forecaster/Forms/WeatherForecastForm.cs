@@ -21,12 +21,10 @@ namespace Forecaster.Forms
             _forecastService = forecastService ?? throw new ArgumentNullException(nameof(forecastService));
             _messageBoxService = messageBoxService ?? throw new ArgumentNullException(nameof(messageBoxService));
             InitializeComponent();
-            AutoScaleMode = AutoScaleMode.Dpi;
         }
 
         private void WeatherForecastForm_Load(object sender, EventArgs e)
         {
-            ClientSize = new Size(1280, 720);
             StartPosition = FormStartPosition.CenterScreen;
             FormBorderStyle = FormBorderStyle.FixedSingle;
             tbCity.Focus();
