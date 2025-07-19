@@ -35,8 +35,10 @@ namespace Forecaster.Forms
             lbForecast = new System.Windows.Forms.Label();
             forecastScrollPanel = new System.Windows.Forms.Panel();
             weatherCard = new System.Windows.Forms.Panel();
+            forecastCard = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)weatherPicture).BeginInit();
             weatherCard.SuspendLayout();
+            forecastCard.SuspendLayout();
             SuspendLayout();
             // 
             // tbCity
@@ -225,7 +227,7 @@ namespace Forecaster.Forms
             lbForecast.BackColor = System.Drawing.Color.Transparent;
             lbForecast.Font = new System.Drawing.Font("Calibri", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             lbForecast.ForeColor = System.Drawing.Color.Black;
-            lbForecast.Location = new System.Drawing.Point(45, 572);
+            lbForecast.Location = new System.Drawing.Point(20, 10);
             lbForecast.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lbForecast.Name = "lbForecast";
             lbForecast.Size = new System.Drawing.Size(173, 53);
@@ -236,10 +238,10 @@ namespace Forecaster.Forms
             // 
             forecastScrollPanel.AutoScroll = true;
             forecastScrollPanel.BackColor = System.Drawing.Color.Transparent;
-            forecastScrollPanel.Location = new System.Drawing.Point(45, 630);
+            forecastScrollPanel.Location = new System.Drawing.Point(20, 68);
             forecastScrollPanel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             forecastScrollPanel.Name = "forecastScrollPanel";
-            forecastScrollPanel.Size = new System.Drawing.Size(1754, 511);
+            forecastScrollPanel.Size = new System.Drawing.Size(1714, 511);
             forecastScrollPanel.TabIndex = 66;
             // 
             // weatherCard
@@ -264,16 +266,28 @@ namespace Forecaster.Forms
             weatherCard.Size = new System.Drawing.Size(1754, 380);
             weatherCard.TabIndex = 18;
             // 
+            // forecastCard
+            // 
+            forecastCard.BackColor = System.Drawing.Color.FromArgb(150, 255, 255, 255);
+            forecastCard.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            forecastCard.Controls.Add(lbForecast);
+            forecastCard.Controls.Add(forecastScrollPanel);
+            forecastCard.Location = new System.Drawing.Point(45, 540);
+            forecastCard.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            forecastCard.Name = "forecastCard";
+            forecastCard.Size = new System.Drawing.Size(1754, 598);
+            forecastCard.TabIndex = 19;
+            // 
             // WeatherForecastForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             AutoSize = true;
+            BackgroundImage = Properties.Resources.background;
             BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             ClientSize = new System.Drawing.Size(1849, 1152);
             Controls.Add(weatherCard);
-            Controls.Add(forecastScrollPanel);
-            Controls.Add(lbForecast);
+            Controls.Add(forecastCard);
             Controls.Add(searchButton);
             Controls.Add(tbCity);
             DoubleBuffered = true;
@@ -285,6 +299,8 @@ namespace Forecaster.Forms
             ((System.ComponentModel.ISupportInitialize)weatherPicture).EndInit();
             weatherCard.ResumeLayout(false);
             weatherCard.PerformLayout();
+            forecastCard.ResumeLayout(false);
+            forecastCard.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -307,5 +323,6 @@ namespace Forecaster.Forms
         private System.Windows.Forms.Label lbForecast;
         private System.Windows.Forms.Panel forecastScrollPanel;
         private System.Windows.Forms.Panel weatherCard;
+        private System.Windows.Forms.Panel forecastCard;
     }
 }
