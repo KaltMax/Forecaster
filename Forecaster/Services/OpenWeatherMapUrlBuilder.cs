@@ -1,6 +1,6 @@
 ﻿using System;
+using Microsoft.Extensions.Configuration;
 using Forecaster.Services.Interfaces;
-using Forecaster.Utility;
 
 namespace Forecaster.Services
 {
@@ -16,9 +16,9 @@ namespace Forecaster.Services
         private const string Units = "metric";
         private const int GeoLocationLimit = 1;
 
-        public OpenWeatherMapUrlBuilder()
+        public OpenWeatherMapUrlBuilder(IConfiguration configuration)
         {
-            _apiKey = ConfigurationHelper.GetApiKey();
+            _apiKey = configuration["ApiSettings:OpenWeatherMapApiKey"];
 
             if (string.IsNullOrWhiteSpace(_apiKey))
             {

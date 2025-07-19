@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Forecaster.Models
+namespace Forecaster.Models.Domain
 {
     public class GeoInfo
     {

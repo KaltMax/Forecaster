@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Forecaster.Models;
+using Forecaster.Models.Domain;
 
 namespace Forecaster.Services.Interfaces
 {

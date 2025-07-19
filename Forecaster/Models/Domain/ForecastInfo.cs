@@ -1,4 +1,4 @@
-﻿namespace Forecaster.Models
+﻿namespace Forecaster.Models.Domain
 {
     public class ForecastInfo
     {

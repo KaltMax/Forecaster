@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using Forecaster.Models.Shared;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace Forecaster.Models
+namespace Forecaster.Models.Api
 {
     public class WeatherResponse
     {
         [JsonPropertyName("coord")]
-        public Clouds Coord { get; set; }
+        public Coord Coord { get; set; }
         [JsonPropertyName("weather")]
         public List<Weather> Weather { get; set; }
         [JsonPropertyName("main")]

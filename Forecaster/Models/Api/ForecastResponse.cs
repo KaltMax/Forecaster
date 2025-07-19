@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace Forecaster.Models
+namespace Forecaster.Models.Api
 {
     public class ForecastResponse
     {

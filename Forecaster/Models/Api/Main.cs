@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Forecaster.Models
+namespace Forecaster.Models.Api
 {
     public class Main
     {
@@ -15,7 +15,7 @@ namespace Forecaster.Models
         [JsonPropertyName("pressure")]
         public int Pressure { get; set; }
         [JsonPropertyName("humidity")]
-        public int Humidity { get; set; }
+        public double Humidity { get; set; }
         [JsonPropertyName("sea_level")]
         public int SeaLevel { get; set; }
         [JsonPropertyName("grnd_level")]

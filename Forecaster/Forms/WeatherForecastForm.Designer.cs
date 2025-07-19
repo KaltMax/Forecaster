@@ -35,6 +35,8 @@ namespace Forecaster.Forms
             lbForecast = new System.Windows.Forms.Label();
             forecastScrollPanel = new System.Windows.Forms.Panel();
             weatherCard = new System.Windows.Forms.Panel();
+            resultMeasurementTime = new System.Windows.Forms.Label();
+            resultCity = new System.Windows.Forms.Label();
             forecastCard = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)weatherPicture).BeginInit();
             weatherCard.SuspendLayout();
@@ -45,10 +47,10 @@ namespace Forecaster.Forms
             // 
             tbCity.BackColor = System.Drawing.SystemColors.HighlightText;
             tbCity.Font = new System.Drawing.Font("Calibri Light", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            tbCity.Location = new System.Drawing.Point(35, 42);
-            tbCity.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            tbCity.Location = new System.Drawing.Point(46, 54);
+            tbCity.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             tbCity.Name = "tbCity";
-            tbCity.Size = new System.Drawing.Size(1170, 47);
+            tbCity.Size = new System.Drawing.Size(1520, 60);
             tbCity.TabIndex = 1;
             tbCity.KeyDown += tbCity_KeyDown;
             // 
@@ -59,10 +61,10 @@ namespace Forecaster.Forms
             searchButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             searchButton.Font = new System.Drawing.Font("Calibri", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             searchButton.ForeColor = System.Drawing.Color.Black;
-            searchButton.Location = new System.Drawing.Point(1239, 38);
-            searchButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            searchButton.Location = new System.Drawing.Point(1611, 49);
+            searchButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             searchButton.Name = "searchButton";
-            searchButton.Size = new System.Drawing.Size(145, 59);
+            searchButton.Size = new System.Drawing.Size(188, 76);
             searchButton.TabIndex = 2;
             searchButton.Text = "Search";
             searchButton.UseVisualStyleBackColor = false;
@@ -72,11 +74,12 @@ namespace Forecaster.Forms
             // 
             lbTemperature.AutoSize = true;
             lbTemperature.BackColor = System.Drawing.Color.Transparent;
-            lbTemperature.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
+            lbTemperature.Font = new System.Drawing.Font("Calibri", 13F, System.Drawing.FontStyle.Bold);
             lbTemperature.ForeColor = System.Drawing.Color.Black;
-            lbTemperature.Location = new System.Drawing.Point(323, 23);
+            lbTemperature.Location = new System.Drawing.Point(420, 205);
+            lbTemperature.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lbTemperature.Name = "lbTemperature";
-            lbTemperature.Size = new System.Drawing.Size(149, 29);
+            lbTemperature.Size = new System.Drawing.Size(214, 42);
             lbTemperature.TabIndex = 4;
             lbTemperature.Text = "Temperature:";
             // 
@@ -84,11 +87,12 @@ namespace Forecaster.Forms
             // 
             resultTemperature.AutoSize = true;
             resultTemperature.BackColor = System.Drawing.Color.Transparent;
-            resultTemperature.Font = new System.Drawing.Font("Calibri", 12F);
+            resultTemperature.Font = new System.Drawing.Font("Calibri", 13F);
             resultTemperature.ForeColor = System.Drawing.Color.Black;
-            resultTemperature.Location = new System.Drawing.Point(323, 54);
+            resultTemperature.Location = new System.Drawing.Point(420, 254);
+            resultTemperature.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             resultTemperature.Name = "resultTemperature";
-            resultTemperature.Size = new System.Drawing.Size(51, 29);
+            resultTemperature.Size = new System.Drawing.Size(74, 42);
             resultTemperature.TabIndex = 5;
             resultTemperature.Text = "N/A";
             resultTemperature.UseMnemonic = false;
@@ -97,11 +101,12 @@ namespace Forecaster.Forms
             // 
             lbHumidity.AutoSize = true;
             lbHumidity.BackColor = System.Drawing.Color.Transparent;
-            lbHumidity.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
+            lbHumidity.Font = new System.Drawing.Font("Calibri", 13F, System.Drawing.FontStyle.Bold);
             lbHumidity.ForeColor = System.Drawing.Color.Black;
-            lbHumidity.Location = new System.Drawing.Point(515, 23);
+            lbHumidity.Location = new System.Drawing.Point(670, 205);
+            lbHumidity.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lbHumidity.Name = "lbHumidity";
-            lbHumidity.Size = new System.Drawing.Size(112, 29);
+            lbHumidity.Size = new System.Drawing.Size(163, 42);
             lbHumidity.TabIndex = 6;
             lbHumidity.Text = "Humidity:";
             // 
@@ -109,11 +114,12 @@ namespace Forecaster.Forms
             // 
             resultHumidity.AutoSize = true;
             resultHumidity.BackColor = System.Drawing.Color.Transparent;
-            resultHumidity.Font = new System.Drawing.Font("Calibri", 12F);
+            resultHumidity.Font = new System.Drawing.Font("Calibri", 13F);
             resultHumidity.ForeColor = System.Drawing.Color.Black;
-            resultHumidity.Location = new System.Drawing.Point(515, 54);
+            resultHumidity.Location = new System.Drawing.Point(670, 254);
+            resultHumidity.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             resultHumidity.Name = "resultHumidity";
-            resultHumidity.Size = new System.Drawing.Size(51, 29);
+            resultHumidity.Size = new System.Drawing.Size(74, 42);
             resultHumidity.TabIndex = 7;
             resultHumidity.Text = "N/A";
             // 
@@ -121,11 +127,12 @@ namespace Forecaster.Forms
             // 
             lbWindSpeed.AutoSize = true;
             lbWindSpeed.BackColor = System.Drawing.Color.Transparent;
-            lbWindSpeed.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
+            lbWindSpeed.Font = new System.Drawing.Font("Calibri", 13F, System.Drawing.FontStyle.Bold);
             lbWindSpeed.ForeColor = System.Drawing.Color.Black;
-            lbWindSpeed.Location = new System.Drawing.Point(708, 23);
+            lbWindSpeed.Location = new System.Drawing.Point(920, 205);
+            lbWindSpeed.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lbWindSpeed.Name = "lbWindSpeed";
-            lbWindSpeed.Size = new System.Drawing.Size(134, 29);
+            lbWindSpeed.Size = new System.Drawing.Size(195, 42);
             lbWindSpeed.TabIndex = 8;
             lbWindSpeed.Text = "Windspeed:";
             // 
@@ -133,11 +140,12 @@ namespace Forecaster.Forms
             // 
             resultWindspeed.AutoSize = true;
             resultWindspeed.BackColor = System.Drawing.Color.Transparent;
-            resultWindspeed.Font = new System.Drawing.Font("Calibri", 12F);
+            resultWindspeed.Font = new System.Drawing.Font("Calibri", 13F);
             resultWindspeed.ForeColor = System.Drawing.Color.Black;
-            resultWindspeed.Location = new System.Drawing.Point(708, 54);
+            resultWindspeed.Location = new System.Drawing.Point(920, 254);
+            resultWindspeed.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             resultWindspeed.Name = "resultWindspeed";
-            resultWindspeed.Size = new System.Drawing.Size(51, 29);
+            resultWindspeed.Size = new System.Drawing.Size(74, 42);
             resultWindspeed.TabIndex = 9;
             resultWindspeed.Text = "N/A";
             // 
@@ -146,19 +154,20 @@ namespace Forecaster.Forms
             weatherCondition.BackColor = System.Drawing.Color.Transparent;
             weatherCondition.Font = new System.Drawing.Font("Calibri", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             weatherCondition.ForeColor = System.Drawing.Color.Black;
-            weatherCondition.Location = new System.Drawing.Point(15, 250);
+            weatherCondition.Location = new System.Drawing.Point(20, 320);
+            weatherCondition.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             weatherCondition.Name = "weatherCondition";
-            weatherCondition.Size = new System.Drawing.Size(231, 36);
+            weatherCondition.Size = new System.Drawing.Size(300, 46);
             weatherCondition.TabIndex = 10;
             weatherCondition.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // weatherPicture
             // 
             weatherPicture.BackColor = System.Drawing.Color.Transparent;
-            weatherPicture.Location = new System.Drawing.Point(15, 12);
-            weatherPicture.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            weatherPicture.Location = new System.Drawing.Point(20, 15);
+            weatherPicture.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             weatherPicture.Name = "weatherPicture";
-            weatherPicture.Size = new System.Drawing.Size(231, 234);
+            weatherPicture.Size = new System.Drawing.Size(300, 300);
             weatherPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             weatherPicture.TabIndex = 12;
             weatherPicture.TabStop = false;
@@ -167,11 +176,12 @@ namespace Forecaster.Forms
             // 
             lbSunrise.AutoSize = true;
             lbSunrise.BackColor = System.Drawing.Color.Transparent;
-            lbSunrise.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
+            lbSunrise.Font = new System.Drawing.Font("Calibri", 13F, System.Drawing.FontStyle.Bold);
             lbSunrise.ForeColor = System.Drawing.Color.Black;
-            lbSunrise.Location = new System.Drawing.Point(900, 23);
+            lbSunrise.Location = new System.Drawing.Point(1170, 205);
+            lbSunrise.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lbSunrise.Name = "lbSunrise";
-            lbSunrise.Size = new System.Drawing.Size(94, 29);
+            lbSunrise.Size = new System.Drawing.Size(136, 42);
             lbSunrise.TabIndex = 13;
             lbSunrise.Text = "Sunrise:";
             // 
@@ -179,12 +189,11 @@ namespace Forecaster.Forms
             // 
             lbSunset.AutoSize = true;
             lbSunset.BackColor = System.Drawing.Color.Transparent;
-            lbSunset.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold);
+            lbSunset.Font = new System.Drawing.Font("Calibri", 13F, System.Drawing.FontStyle.Bold);
             lbSunset.ForeColor = System.Drawing.Color.Black;
-            lbSunset.Location = new System.Drawing.Point(1092, 23);
-            lbSunset.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            lbSunset.Location = new System.Drawing.Point(1420, 205);
             lbSunset.Name = "lbSunset";
-            lbSunset.Size = new System.Drawing.Size(87, 29);
+            lbSunset.Size = new System.Drawing.Size(127, 42);
             lbSunset.TabIndex = 14;
             lbSunset.Text = "Sunset:";
             // 
@@ -192,11 +201,12 @@ namespace Forecaster.Forms
             // 
             resultSunrise.AutoSize = true;
             resultSunrise.BackColor = System.Drawing.Color.Transparent;
-            resultSunrise.Font = new System.Drawing.Font("Calibri", 12F);
+            resultSunrise.Font = new System.Drawing.Font("Calibri", 13F);
             resultSunrise.ForeColor = System.Drawing.Color.Black;
-            resultSunrise.Location = new System.Drawing.Point(900, 54);
+            resultSunrise.Location = new System.Drawing.Point(1170, 254);
+            resultSunrise.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             resultSunrise.Name = "resultSunrise";
-            resultSunrise.Size = new System.Drawing.Size(51, 29);
+            resultSunrise.Size = new System.Drawing.Size(74, 42);
             resultSunrise.TabIndex = 15;
             resultSunrise.Text = "N/A";
             // 
@@ -204,11 +214,12 @@ namespace Forecaster.Forms
             // 
             resultSunset.AutoSize = true;
             resultSunset.BackColor = System.Drawing.Color.Transparent;
-            resultSunset.Font = new System.Drawing.Font("Calibri", 12F);
+            resultSunset.Font = new System.Drawing.Font("Calibri", 13F);
             resultSunset.ForeColor = System.Drawing.Color.Black;
-            resultSunset.Location = new System.Drawing.Point(1092, 54);
+            resultSunset.Location = new System.Drawing.Point(1420, 254);
+            resultSunset.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             resultSunset.Name = "resultSunset";
-            resultSunset.Size = new System.Drawing.Size(51, 29);
+            resultSunset.Size = new System.Drawing.Size(74, 42);
             resultSunset.TabIndex = 16;
             resultSunset.Text = "N/A";
             // 
@@ -218,9 +229,10 @@ namespace Forecaster.Forms
             lbForecast.BackColor = System.Drawing.Color.Transparent;
             lbForecast.Font = new System.Drawing.Font("Calibri", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             lbForecast.ForeColor = System.Drawing.Color.Black;
-            lbForecast.Location = new System.Drawing.Point(15, 8);
+            lbForecast.Location = new System.Drawing.Point(20, 10);
+            lbForecast.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lbForecast.Name = "lbForecast";
-            lbForecast.Size = new System.Drawing.Size(129, 39);
+            lbForecast.Size = new System.Drawing.Size(173, 53);
             lbForecast.TabIndex = 17;
             lbForecast.Text = "Forecast";
             // 
@@ -228,16 +240,18 @@ namespace Forecaster.Forms
             // 
             forecastScrollPanel.AutoScroll = true;
             forecastScrollPanel.BackColor = System.Drawing.Color.Transparent;
-            forecastScrollPanel.Location = new System.Drawing.Point(15, 53);
-            forecastScrollPanel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            forecastScrollPanel.Location = new System.Drawing.Point(20, 68);
+            forecastScrollPanel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             forecastScrollPanel.Name = "forecastScrollPanel";
-            forecastScrollPanel.Size = new System.Drawing.Size(1318, 399);
+            forecastScrollPanel.Size = new System.Drawing.Size(1713, 511);
             forecastScrollPanel.TabIndex = 66;
             // 
             // weatherCard
             // 
             weatherCard.BackColor = System.Drawing.Color.FromArgb(150, 255, 255, 255);
             weatherCard.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            weatherCard.Controls.Add(resultMeasurementTime);
+            weatherCard.Controls.Add(resultCity);
             weatherCard.Controls.Add(lbTemperature);
             weatherCard.Controls.Add(resultTemperature);
             weatherCard.Controls.Add(lbHumidity);
@@ -250,11 +264,35 @@ namespace Forecaster.Forms
             weatherCard.Controls.Add(lbSunset);
             weatherCard.Controls.Add(resultSunrise);
             weatherCard.Controls.Add(resultSunset);
-            weatherCard.Location = new System.Drawing.Point(35, 109);
-            weatherCard.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            weatherCard.Location = new System.Drawing.Point(46, 140);
+            weatherCard.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             weatherCard.Name = "weatherCard";
-            weatherCard.Size = new System.Drawing.Size(1350, 297);
+            weatherCard.Size = new System.Drawing.Size(1754, 380);
             weatherCard.TabIndex = 18;
+            // 
+            // resultMeasurementTime
+            // 
+            resultMeasurementTime.AutoSize = true;
+            resultMeasurementTime.BackColor = System.Drawing.Color.Transparent;
+            resultMeasurementTime.Font = new System.Drawing.Font("Calibri", 14F, System.Drawing.FontStyle.Bold);
+            resultMeasurementTime.Location = new System.Drawing.Point(420, 110);
+            resultMeasurementTime.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            resultMeasurementTime.Name = "resultMeasurementTime";
+            resultMeasurementTime.Size = new System.Drawing.Size(82, 46);
+            resultMeasurementTime.TabIndex = 18;
+            resultMeasurementTime.Text = "N/A";
+            // 
+            // resultCity
+            // 
+            resultCity.AutoSize = true;
+            resultCity.BackColor = System.Drawing.Color.Transparent;
+            resultCity.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Bold);
+            resultCity.Location = new System.Drawing.Point(420, 40);
+            resultCity.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            resultCity.Name = "resultCity";
+            resultCity.Size = new System.Drawing.Size(105, 59);
+            resultCity.TabIndex = 17;
+            resultCity.Text = "N/A";
             // 
             // forecastCard
             // 
@@ -262,27 +300,27 @@ namespace Forecaster.Forms
             forecastCard.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             forecastCard.Controls.Add(lbForecast);
             forecastCard.Controls.Add(forecastScrollPanel);
-            forecastCard.Location = new System.Drawing.Point(35, 422);
-            forecastCard.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            forecastCard.Location = new System.Drawing.Point(46, 540);
+            forecastCard.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             forecastCard.Name = "forecastCard";
-            forecastCard.Size = new System.Drawing.Size(1350, 468);
+            forecastCard.Size = new System.Drawing.Size(1754, 598);
             forecastCard.TabIndex = 19;
             // 
             // WeatherForecastForm
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+            AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             AutoSize = true;
             BackgroundImage = Properties.Resources.background;
             BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            ClientSize = new System.Drawing.Size(1422, 920);
+            ClientSize = new System.Drawing.Size(1849, 1178);
             Controls.Add(weatherCard);
             Controls.Add(forecastCard);
             Controls.Add(searchButton);
             Controls.Add(tbCity);
             DoubleBuffered = true;
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
-            Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             Name = "WeatherForecastForm";
             Text = "Forecaster";
             Load += WeatherForecastForm_Load;
@@ -314,5 +352,7 @@ namespace Forecaster.Forms
         private System.Windows.Forms.Panel forecastScrollPanel;
         private System.Windows.Forms.Panel weatherCard;
         private System.Windows.Forms.Panel forecastCard;
+        private System.Windows.Forms.Label resultCity;
+        private System.Windows.Forms.Label resultMeasurementTime;
     }
 }

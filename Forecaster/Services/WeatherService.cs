@@ -2,7 +2,8 @@
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Forecaster.Models;
+using Forecaster.Models.Api;
+using Forecaster.Models.Domain;
 using Forecaster.Services.Interfaces;
 
 namespace Forecaster.Services
@@ -39,7 +40,7 @@ namespace Forecaster.Services
                 var weatherInfo = await GetWeatherByCoordinatesAsync(geoInfo.Latitude, geoInfo.Longitude);
                 if (weatherInfo != null)
                 {
-                    weatherInfo.CityName = geoInfo.Name;
+                    weatherInfo.CityName = $"{geoInfo.Name}, {geoInfo.Country}";
                 }
 
                 return weatherInfo;
@@ -67,7 +68,7 @@ namespace Forecaster.Services
                 var responseContent = await response.Content.ReadAsStringAsync();
                 var weatherResponse = JsonSerializer.Deserialize<WeatherResponse>(responseContent);
 
-                return MapToWeatherInfo(weatherResponse, lat, lon);
+                return MapToWeatherInfo(weatherResponse);
             }
             catch (HttpRequestException)
             {
@@ -80,26 +81,28 @@ namespace Forecaster.Services
             }
         }
 
-        private WeatherInfo MapToWeatherInfo(WeatherResponse weatherResponse, double lat, double lon)
+        private WeatherInfo MapToWeatherInfo(WeatherResponse weatherResponse)
         {
             if (weatherResponse?.Main == null ||
                 weatherResponse.Weather == null ||
                 weatherResponse.Weather.Count == 0 ||
                 weatherResponse.Wind == null ||
-                weatherResponse.Sys == null)
+                weatherResponse.Sys == null ||
+                weatherResponse.Coord == null)
             {
                 return null;
             }
 
             return new WeatherInfo
             {
-                Latitude = lat,
-                Longitude = lon,
+                CityName = weatherResponse.Name,
+                MeasurementTime = weatherResponse.Dt,
+                Latitude = weatherResponse.Coord.Lat,
+                Longitude = weatherResponse.Coord.Lon,
                 Temperature = weatherResponse.Main.Temp,
                 Humidity = weatherResponse.Main.Humidity,
                 WeatherCondition = weatherResponse.Weather[0].Description,
                 WindSpeed = weatherResponse.Wind.Speed,
-                CityName = weatherResponse.Name,
                 Icon = weatherResponse.Weather[0].Icon,
                 Sunrise = weatherResponse.Sys.Sunrise,
                 Sunset = weatherResponse.Sys.Sunset

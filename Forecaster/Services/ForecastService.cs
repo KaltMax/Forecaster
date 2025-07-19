@@ -4,7 +4,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Forecaster.Models;
+using Forecaster.Models.Api;
+using Forecaster.Models.Domain;
 using Forecaster.Services.Interfaces;
 
 namespace Forecaster.Services
@@ -13,8 +14,6 @@ namespace Forecaster.Services
     {
         private readonly HttpClient _httpClient;
         private readonly IOpenWeatherMapUrlBuilder _urlBuilder;
-
-        private const int MinimumForecastCount = 4;
 
         public ForecastService(HttpClient httpClient, IOpenWeatherMapUrlBuilder urlBuilder)
         {
@@ -48,12 +47,12 @@ namespace Forecaster.Services
 
         private List<ForecastInfo> MapToForecastInfoList(ForecastResponse forecastResponse)
         {
-            if (forecastResponse?.List == null || forecastResponse.List.Count < MinimumForecastCount)
+            if (forecastResponse?.List == null)
             {
                 return null;
             }
 
-            var forecastInfos = (from forecast in forecastResponse.List.Skip(1)
+            var forecastInfos = (from forecast in forecastResponse.List
             where forecast is { Main: not null, Weather.Count: > 0, Wind: not null }
             select new ForecastInfo
             {
@@ -65,7 +64,6 @@ namespace Forecaster.Services
                 DateTime = forecast.Dt
             }).ToList();
 
-            // Skip the first entry (current time) and map the rest
             return forecastInfos.Count > 0 ? forecastInfos : null;
         }
     }

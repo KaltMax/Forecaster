@@ -1,4 +1,4 @@
-﻿using Forecaster.Models;
+﻿using Forecaster.Models.Domain;
 using Forecaster.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -94,6 +94,8 @@ namespace Forecaster.Forms
 
         private void DisplayWeatherInfo(WeatherInfo weatherInfo)
         {
+            resultCity.Text = weatherInfo.CityName;
+            resultMeasurementTime.Text = DateTimeOffset.FromUnixTimeSeconds(weatherInfo.MeasurementTime).ToString("dd.MM.yyyy, HH:mm");
             resultTemperature.Text = $@"{weatherInfo.Temperature:F1} °C";
             resultHumidity.Text = $@"{weatherInfo.Humidity}%";
             resultWindspeed.Text = $@"{weatherInfo.WindSpeed:F1} m/s";

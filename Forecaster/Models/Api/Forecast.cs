@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Forecaster.Models.Shared;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace Forecaster.Models
+namespace Forecaster.Models.Api
 {
     public class Forecast
     {
