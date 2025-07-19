@@ -13,9 +13,7 @@ namespace Forecaster.Forms
         private readonly IWeatherService _weatherService;
         private readonly IForecastService _forecastService;
         private readonly IMessageBoxService _messageBoxService;
-        private int _currentForecastIndex;
         private List<ForecastInfo> _forecastInfos;
-        private const int ForecastsPerPage = 3;
 
         public WeatherForecastForm(IWeatherService weatherService, IForecastService forecastService, IMessageBoxService messageBoxService)
         {
@@ -31,9 +29,6 @@ namespace Forecaster.Forms
             ClientSize = new Size(1280, 720);
             StartPosition = FormStartPosition.CenterScreen;
             FormBorderStyle = FormBorderStyle.FixedSingle;
-
-            // Set initial navigation button states
-            UpdateNavigationButtons();
             tbCity.Focus();
         }
 
@@ -66,8 +61,6 @@ namespace Forecaster.Forms
             searchButton.Enabled = !isLoading;
             searchButton.Text = isLoading ? "Loading..." : "Search";
             tbCity.Enabled = !isLoading;
-            nextButton.Enabled = !isLoading && CanNavigateNext();
-            prevButton.Enabled = !isLoading && CanNavigatePrevious();
             Cursor = isLoading ? Cursors.WaitCursor : Cursors.Default;
         }
 
@@ -133,11 +126,9 @@ namespace Forecaster.Forms
             {
                 _forecastInfos = await _forecastService.GetForecastByCoordinatesAsync(weatherInfo.Latitude, weatherInfo.Longitude);
 
-                if (_forecastInfos is { Count: >= 3 })
+                if (_forecastInfos is { Count: > 0 })
                 {
-                    _currentForecastIndex = 0;
-                    DisplayCurrentForecast();
-                    UpdateNavigationButtons();
+                    DisplayAllForecasts();
                 }
                 else
                 {
@@ -154,32 +145,117 @@ namespace Forecaster.Forms
             }
         }
 
-        private void DisplayCurrentForecast()
+        private void DisplayAllForecasts()
         {
-            if (_forecastInfos == null || _forecastInfos.Count < 3)
+            // Clear existing forecast items
+            forecastScrollPanel.Controls.Clear();
+
+            if (_forecastInfos == null || _forecastInfos.Count == 0)
             {
                 return;
             }
 
-            var maxIndex = _forecastInfos.Count - 1;
+            const int itemWidth = 200;
+            const int itemHeight = 200;
+            const int itemSpacing = 10;
+            int currentX = 10;
 
-            DisplayForecast(_forecastInfos[_currentForecastIndex], pictureForecast1, weatherConditionForecast1, forecastResultTemperature1, forecastResultHumidity1, forecastResultWindspeed1, resultForecastTime1, resultForecastDate1);
+            foreach (var forecast in _forecastInfos)
+            {
+                var forecastItem = CreateForecastItem(forecast, currentX, 10, itemWidth, itemHeight);
+                forecastScrollPanel.Controls.Add(forecastItem);
+                currentX += itemWidth + itemSpacing;
+            }
 
-            DisplayForecast(_forecastInfos[Math.Min(_currentForecastIndex + 1, maxIndex)], pictureForecast2, weatherConditionForecast2, forecastResultTemperature2, forecastResultHumidity2, forecastResultWindspeed2, resultForecastTime2, resultForecastDate2);
-
-            DisplayForecast(_forecastInfos[Math.Min(_currentForecastIndex + 2, maxIndex)], pictureForecast3, weatherConditionForecast3, forecastResultTemperature3, forecastResultHumidity3, forecastResultWindspeed3, resultForecastTime3, resultForecastDate3);
+            // Set the panel's auto-scroll size to accommodate all items
+            forecastScrollPanel.AutoScrollMinSize = new Size(currentX, itemHeight + 20);
         }
 
-        private void DisplayForecast(ForecastInfo forecastInfo, PictureBox pictureBox, Label conditionLabel, Label temperatureLabel, Label humidityLabel, Label windspeedLabel, Label timeLabel, Label dateLabel)
+        private Panel CreateForecastItem(ForecastInfo forecastInfo, int x, int y, int width, int height)
         {
-            dateLabel.Text = DateTimeOffset.FromUnixTimeSeconds(forecastInfo.DateTime).ToString("dd.MM.yyyy");
-            timeLabel.Text = DateTimeOffset.FromUnixTimeSeconds(forecastInfo.DateTime).ToString("HH:mm");
-            conditionLabel.Text = forecastInfo.WeatherCondition;
-            temperatureLabel.Text = $@"{forecastInfo.Temperature:F1} °C";
-            humidityLabel.Text = $@"{forecastInfo.Humidity}%";
-            windspeedLabel.Text = $@"{forecastInfo.WindSpeed:F1} m/s";
+            var itemPanel = new Panel
+            {
+                Location = new Point(x, y),
+                Size = new Size(width, height),
+                BackColor = Color.FromArgb(150, Color.LightGray),
+                BorderStyle = BorderStyle.FixedSingle
+            };
 
-            LoadForecastIcon(pictureBox, forecastInfo.Icon);
+            var dateLabel = new Label
+            {
+                Text = DateTimeOffset.FromUnixTimeSeconds(forecastInfo.DateTime).ToString("dd.MM.yyyy"),
+                Font = new Font("Calibri", 11F, FontStyle.Bold),
+                ForeColor = Color.Black,
+                Location = new Point(10, 5),
+                Size = new Size(width - 20, 22),
+                TextAlign = ContentAlignment.MiddleCenter
+            };
+
+            var timeLabel = new Label
+            {
+                Text = DateTimeOffset.FromUnixTimeSeconds(forecastInfo.DateTime).ToString("HH:mm"),
+                Font = new Font("Calibri", 9F, FontStyle.Regular),
+                ForeColor = Color.Black,
+                Location = new Point(10, 27),
+                Size = new Size(width - 20, 18),
+                TextAlign = ContentAlignment.MiddleCenter
+            };
+
+            var iconPictureBox = new PictureBox
+            {
+                Location = new Point((width - 60) / 2, 50),
+                Size = new Size(60, 60),
+                SizeMode = PictureBoxSizeMode.Zoom,
+                BackColor = Color.FromArgb(150, Color.LightGray),
+            };
+
+            LoadForecastIcon(iconPictureBox, forecastInfo.Icon);
+
+            var conditionLabel = new Label
+            {
+                Text = forecastInfo.WeatherCondition,
+                Font = new Font("Calibri", 9F, FontStyle.Bold),
+                ForeColor = Color.Black,
+                Location = new Point(5, 115),
+                Size = new Size(width - 10, 20),
+                TextAlign = ContentAlignment.MiddleCenter
+            };
+
+            var tempLabel = new Label
+            {
+                Text = $@"Temp: {forecastInfo.Temperature:F1} °C",
+                Font = new Font("Calibri", 8F, FontStyle.Regular),
+                ForeColor = Color.Black,
+                Location = new Point(10, 140),
+                Size = new Size(width - 20, 16)
+            };
+
+            var humidityLabel = new Label
+            {
+                Text = $@"Humidity: {forecastInfo.Humidity}%",
+                Font = new Font("Calibri", 8F, FontStyle.Regular),
+                ForeColor = Color.Black,
+                Location = new Point(10, 158),
+                Size = new Size(width - 20, 16)
+            };
+
+            var windLabel = new Label
+            {
+                Text = $@"Wind: {forecastInfo.WindSpeed:F1} m/s",
+                Font = new Font("Calibri", 8F, FontStyle.Regular),
+                ForeColor = Color.Black,
+                Location = new Point(10, 176),
+                Size = new Size(width - 20, 16)
+            };
+
+            // Add all controls to the item panel
+            itemPanel.Controls.AddRange(new Control[]
+            {
+                dateLabel, timeLabel, iconPictureBox, conditionLabel,
+                tempLabel, humidityLabel, windLabel
+            });
+
+            return itemPanel;
         }
 
         private void LoadForecastIcon(PictureBox pictureBox, string iconCode)
@@ -194,42 +270,6 @@ namespace Forecaster.Forms
                 // Handle icon loading failure silently
                 pictureBox.Image = null;
             }
-        }
-
-        private void nextButton_Click(object sender, EventArgs e)
-        {
-            if (!CanNavigateNext())
-            {
-                return;
-            }
-
-            _currentForecastIndex += ForecastsPerPage;
-            DisplayCurrentForecast();
-            UpdateNavigationButtons();
-        }
-
-        private void prevButton_Click(object sender, EventArgs e)
-        {
-            if (!CanNavigatePrevious())
-            {
-                return;
-            }
-
-            _currentForecastIndex -= ForecastsPerPage;
-            DisplayCurrentForecast();
-            UpdateNavigationButtons();
-        }
-
-        private bool CanNavigateNext() =>
-            _forecastInfos != null && _currentForecastIndex + ForecastsPerPage < _forecastInfos.Count;
-
-        private bool CanNavigatePrevious() =>
-            _forecastInfos != null && _currentForecastIndex - ForecastsPerPage >= 0;
-
-        private void UpdateNavigationButtons()
-        {
-            nextButton.Enabled = CanNavigateNext();
-            prevButton.Enabled = CanNavigatePrevious();
         }
 
         private void tbCity_KeyDown(object sender, KeyEventArgs e)

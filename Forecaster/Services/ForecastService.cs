@@ -26,7 +26,7 @@ namespace Forecaster.Services
         {
             try
             {
-                string forecastApiUrl = _urlBuilder.BuildForecastApiUrl(latitude, longitude);
+                var forecastApiUrl = _urlBuilder.BuildForecastApiUrl(latitude, longitude);
 
                 using var response = await _httpClient.GetAsync(forecastApiUrl);
                 response.EnsureSuccessStatusCode();
