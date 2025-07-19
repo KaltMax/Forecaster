@@ -53,28 +53,19 @@ namespace Forecaster.Services
                 return null;
             }
 
-            var forecastInfos = new List<ForecastInfo>();
+            var forecastInfos = (from forecast in forecastResponse.List.Skip(1)
+            where forecast is { Main: not null, Weather.Count: > 0, Wind: not null }
+            select new ForecastInfo
+            {
+                Temperature = forecast.Main.Temp,
+                Humidity = forecast.Main.Humidity,
+                WeatherCondition = forecast.Weather[0].Description,
+                WindSpeed = forecast.Wind.Speed,
+                Icon = forecast.Weather[0].Icon,
+                DateTime = forecast.Dt
+            }).ToList();
 
             // Skip the first entry (current time) and map the rest
-            foreach (var forecast in forecastResponse.List.Skip(1))
-            {
-                if (forecast?.Main != null &&
-                    forecast.Weather != null &&
-                    forecast.Weather.Count > 0 &&
-                    forecast.Wind != null)
-                {
-                    forecastInfos.Add(new ForecastInfo
-                    {
-                        Temperature = forecast.Main.Temp,
-                        Humidity = forecast.Main.Humidity,
-                        WeatherCondition = forecast.Weather[0].Description,
-                        WindSpeed = forecast.Wind.Speed,
-                        Icon = forecast.Weather[0].Icon,
-                        DateTime = forecast.Dt
-                    });
-                }
-            }
-
             return forecastInfos.Count > 0 ? forecastInfos : null;
         }
     }

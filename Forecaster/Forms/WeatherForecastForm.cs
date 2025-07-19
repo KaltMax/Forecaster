@@ -39,7 +39,7 @@ namespace Forecaster.Forms
 
         private async void searchButton_Click(object sender, EventArgs e)
         {
-            string cityName = tbCity.Text.Trim();
+            var cityName = tbCity.Text.Trim();
             if (string.IsNullOrEmpty(cityName))
             {
                 _messageBoxService.ShowWarning("Please enter a city name.");
@@ -117,7 +117,7 @@ namespace Forecaster.Forms
         {
             try
             {
-                string iconUrl = $"https://openweathermap.org/img/wn/{iconCode}.png";
+                var iconUrl = $"https://openweathermap.org/img/wn/{iconCode}.png";
                 weatherPicture.Load(iconUrl);
             }
             catch
@@ -157,9 +157,11 @@ namespace Forecaster.Forms
         private void DisplayCurrentForecast()
         {
             if (_forecastInfos == null || _forecastInfos.Count < 3)
+            {
                 return;
+            }
 
-            int maxIndex = _forecastInfos.Count - 1;
+            var maxIndex = _forecastInfos.Count - 1;
 
             DisplayForecast(_forecastInfos[_currentForecastIndex], pictureForecast1, weatherConditionForecast1, forecastResultTemperature1, forecastResultHumidity1, forecastResultWindspeed1, resultForecastTime1, resultForecastDate1);
 
@@ -184,7 +186,7 @@ namespace Forecaster.Forms
         {
             try
             {
-                string iconUrl = $"https://openweathermap.org/img/wn/{iconCode}.png";
+                var iconUrl = $"https://openweathermap.org/img/wn/{iconCode}.png";
                 pictureBox.Load(iconUrl);
             }
             catch
@@ -196,22 +198,26 @@ namespace Forecaster.Forms
 
         private void nextButton_Click(object sender, EventArgs e)
         {
-            if (CanNavigateNext())
+            if (!CanNavigateNext())
             {
-                _currentForecastIndex += ForecastsPerPage;
-                DisplayCurrentForecast();
-                UpdateNavigationButtons();
+                return;
             }
+
+            _currentForecastIndex += ForecastsPerPage;
+            DisplayCurrentForecast();
+            UpdateNavigationButtons();
         }
 
         private void prevButton_Click(object sender, EventArgs e)
         {
-            if (CanNavigatePrevious())
+            if (!CanNavigatePrevious())
             {
-                _currentForecastIndex -= ForecastsPerPage;
-                DisplayCurrentForecast();
-                UpdateNavigationButtons();
+                return;
             }
+
+            _currentForecastIndex -= ForecastsPerPage;
+            DisplayCurrentForecast();
+            UpdateNavigationButtons();
         }
 
         private bool CanNavigateNext() =>
@@ -228,11 +234,13 @@ namespace Forecaster.Forms
 
         private void tbCity_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter && !string.IsNullOrWhiteSpace(tbCity.Text))
+            if (e.KeyCode != Keys.Enter || string.IsNullOrWhiteSpace(tbCity.Text))
             {
-                searchButton.PerformClick();
-                e.SuppressKeyPress = true;
+                return;
             }
+
+            searchButton.PerformClick();
+            e.SuppressKeyPress = true;
         }
     }
 }

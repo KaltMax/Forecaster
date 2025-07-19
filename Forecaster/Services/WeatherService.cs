@@ -59,7 +59,7 @@ namespace Forecaster.Services
         {
             try
             {
-                string weatherApiUrl = _urlBuilder.BuildWeatherApiUrl(lat, lon);
+                var weatherApiUrl = _urlBuilder.BuildWeatherApiUrl(lat, lon);
 
                 using var response = await _httpClient.GetAsync(weatherApiUrl);
                 response.EnsureSuccessStatusCode();
@@ -80,7 +80,6 @@ namespace Forecaster.Services
             }
         }
 
-        // Mapping Helper Methods
         private WeatherInfo MapToWeatherInfo(WeatherResponse weatherResponse, double lat, double lon)
         {
             if (weatherResponse?.Main == null ||

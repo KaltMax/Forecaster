@@ -26,7 +26,7 @@ namespace Forecaster.Services
                 if (string.IsNullOrWhiteSpace(cityName))
                     throw new ArgumentException(@"City name cannot be null or empty.", nameof(cityName));
 
-                string geoApiUrl = _urlBuilder.BuildGeoApiUrl(cityName);
+                var geoApiUrl = _urlBuilder.BuildGeoApiUrl(cityName);
 
                 using var response = await _httpClient.GetAsync(geoApiUrl);
                 response.EnsureSuccessStatusCode();
