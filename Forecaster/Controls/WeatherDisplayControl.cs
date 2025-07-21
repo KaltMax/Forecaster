@@ -16,7 +16,7 @@ namespace Forecaster.Controls
             resultCity.Text = weatherInfo.CityName;
             resultMeasurementTime.Text = DateTimeOffset.FromUnixTimeSeconds(weatherInfo.MeasurementTime).ToLocalTime().ToString("dd.MM.yyyy, HH:mm");
             resultTemperature.Text = $@"{weatherInfo.Temperature:F1} °C";
-            resultHumidity.Text = $@"{weatherInfo.Humidity}%";
+            resultHumidity.Text = $@"{weatherInfo.Humidity} %";
             resultWindspeed.Text = $@"{weatherInfo.WindSpeed:F1} m/s";
             weatherCondition.Text = weatherInfo.WeatherCondition;
             resultPressure.Text = $@"{weatherInfo.Pressure} hPa";

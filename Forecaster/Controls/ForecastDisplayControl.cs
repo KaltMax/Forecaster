@@ -62,7 +62,7 @@ namespace Forecaster.Controls
             var timeLabel = new Label
             {
                 Text = DateTimeOffset.FromUnixTimeSeconds(forecastInfo.DateTime).ToLocalTime().ToString("HH:mm"),
-                Font = new Font("Calibri", 9F, FontStyle.Regular),
+                Font = new Font("Calibri", 10F, FontStyle.Regular),
                 ForeColor = Color.Black,
                 Location = new Point(10, 27),
                 Size = new Size(width - 20, 18),
@@ -82,7 +82,7 @@ namespace Forecaster.Controls
             var conditionLabel = new Label
             {
                 Text = forecastInfo.WeatherCondition,
-                Font = new Font("Calibri", 9F, FontStyle.Bold),
+                Font = new Font("Calibri", 10F, FontStyle.Bold),
                 ForeColor = Color.Black,
                 Location = new Point(10, 115),
                 Size = new Size(width - 20, 20),
@@ -91,8 +91,8 @@ namespace Forecaster.Controls
 
             var tempLabel = new Label
             {
-                Text = $@"Temp: {forecastInfo.Temperature:F1} °C",
-                Font = new Font("Calibri", 8F, FontStyle.Regular),
+                Text = $@"Temp:             {forecastInfo.Temperature:F1} °C",
+                Font = new Font("Calibri", 9F, FontStyle.Regular),
                 ForeColor = Color.Black,
                 Location = new Point(10, 140),
                 Size = new Size(width - 20, 16)
@@ -100,8 +100,8 @@ namespace Forecaster.Controls
 
             var humidityLabel = new Label
             {
-                Text = $@"Humidity: {forecastInfo.Humidity}%",
-                Font = new Font("Calibri", 8F, FontStyle.Regular),
+                Text = $@"Humidity:         {forecastInfo.Humidity} %",
+                Font = new Font("Calibri", 9F, FontStyle.Regular),
                 ForeColor = Color.Black,
                 Location = new Point(10, 158),
                 Size = new Size(width - 20, 16)
@@ -109,8 +109,8 @@ namespace Forecaster.Controls
 
             var windLabel = new Label
             {
-                Text = $@"Wind: {forecastInfo.WindSpeed:F1} m/s",
-                Font = new Font("Calibri", 8F, FontStyle.Regular),
+                Text = $@"Wind:             {forecastInfo.WindSpeed:F1} m/s",
+                Font = new Font("Calibri", 9F, FontStyle.Regular),
                 ForeColor = Color.Black,
                 Location = new Point(10, 176),
                 Size = new Size(width - 20, 16)
