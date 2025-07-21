@@ -101,6 +101,7 @@ namespace Forecaster.Services
                 Longitude = weatherResponse.Coord.Lon,
                 Temperature = weatherResponse.Main.Temp,
                 Humidity = weatherResponse.Main.Humidity,
+                Pressure = weatherResponse.Main.Pressure,
                 WeatherCondition = weatherResponse.Weather[0].Description,
                 WindSpeed = weatherResponse.Wind.Speed,
                 Icon = weatherResponse.Weather[0].Icon,

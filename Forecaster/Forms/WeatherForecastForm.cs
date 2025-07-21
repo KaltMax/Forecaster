@@ -100,6 +100,7 @@ namespace Forecaster.Forms
             resultHumidity.Text = $@"{weatherInfo.Humidity}%";
             resultWindspeed.Text = $@"{weatherInfo.WindSpeed:F1} m/s";
             weatherCondition.Text = weatherInfo.WeatherCondition;
+            resultPressure.Text = $@"{weatherInfo.Pressure} hPa";
             resultSunrise.Text = DateTimeOffset.FromUnixTimeSeconds(weatherInfo.Sunrise).ToString("HH:mm");
             resultSunset.Text = DateTimeOffset.FromUnixTimeSeconds(weatherInfo.Sunset).ToString("HH:mm");
 
@@ -216,8 +217,8 @@ namespace Forecaster.Forms
                 Text = forecastInfo.WeatherCondition,
                 Font = new Font("Calibri", 9F, FontStyle.Bold),
                 ForeColor = Color.Black,
-                Location = new Point(5, 115),
-                Size = new Size(width - 10, 20),
+                Location = new Point(10, 115),
+                Size = new Size(width - 20, 20),
                 TextAlign = ContentAlignment.MiddleCenter
             };
 
