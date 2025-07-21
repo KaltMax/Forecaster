@@ -2,15 +2,8 @@
 {
     partial class ForecastDisplayControl
     {
-        /// <summary> 
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary> 
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -20,18 +13,50 @@
             base.Dispose(disposing);
         }
 
-        #region Component Designer generated code
-
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            lbForecast = new System.Windows.Forms.Label();
+            forecastScrollPanel = new System.Windows.Forms.Panel();
+            SuspendLayout();
+            // 
+            // lbForecast
+            // 
+            lbForecast.AutoSize = true;
+            lbForecast.BackColor = System.Drawing.Color.Transparent;
+            lbForecast.Font = new System.Drawing.Font("Calibri", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lbForecast.ForeColor = System.Drawing.Color.Black;
+            lbForecast.Location = new System.Drawing.Point(20, 10);
+            lbForecast.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lbForecast.Name = "lbForecast";
+            lbForecast.Size = new System.Drawing.Size(173, 53);
+            lbForecast.TabIndex = 17;
+            lbForecast.Text = "Forecast";
+            // 
+            // forecastScrollPanel
+            // 
+            forecastScrollPanel.AutoScroll = true;
+            forecastScrollPanel.BackColor = System.Drawing.Color.Transparent;
+            forecastScrollPanel.Location = new System.Drawing.Point(20, 68);
+            forecastScrollPanel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            forecastScrollPanel.Name = "forecastScrollPanel";
+            forecastScrollPanel.Size = new System.Drawing.Size(1713, 511);
+            forecastScrollPanel.TabIndex = 66;
+            // 
+            // ForecastDisplayControl
+            // 
+            AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.FromArgb(150, 255, 255, 255);
+            BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            Controls.Add(lbForecast);
+            Controls.Add(forecastScrollPanel);
+            Name = "ForecastDisplayControl";
+            Size = new System.Drawing.Size(1754, 598);
+            ResumeLayout(false);
+            PerformLayout();
         }
 
-        #endregion
+        private System.Windows.Forms.Label lbForecast;
+        private System.Windows.Forms.Panel forecastScrollPanel;
     }
 }
