@@ -16,38 +16,20 @@ namespace Forecaster.Forms
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WeatherForecastForm));
-            tbCity = new System.Windows.Forms.TextBox();
-            searchButton = new System.Windows.Forms.Button();
+            searchControl = new Forecaster.Controls.SearchControl();
             weatherDisplayControl = new Forecaster.Controls.WeatherDisplayControl();
             forecastDisplayControl = new Forecaster.Controls.ForecastDisplayControl();
             SuspendLayout();
             // 
-            // tbCity
+            // searchControl
             // 
-            tbCity.BackColor = System.Drawing.SystemColors.HighlightText;
-            tbCity.Font = new System.Drawing.Font("Calibri Light", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            tbCity.Location = new System.Drawing.Point(46, 54);
-            tbCity.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            tbCity.Name = "tbCity";
-            tbCity.Size = new System.Drawing.Size(1520, 60);
-            tbCity.TabIndex = 1;
-            tbCity.KeyDown += tbCity_KeyDown;
-            // 
-            // searchButton
-            // 
-            searchButton.BackColor = System.Drawing.Color.Transparent;
-            searchButton.BackgroundImage = Properties.Resources.buttonBackground;
-            searchButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            searchButton.Font = new System.Drawing.Font("Calibri", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            searchButton.ForeColor = System.Drawing.Color.Black;
-            searchButton.Location = new System.Drawing.Point(1611, 49);
-            searchButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            searchButton.Name = "searchButton";
-            searchButton.Size = new System.Drawing.Size(188, 76);
-            searchButton.TabIndex = 2;
-            searchButton.Text = "Search";
-            searchButton.UseVisualStyleBackColor = false;
-            searchButton.Click += searchButton_Click;
+            searchControl.BackColor = System.Drawing.Color.Transparent;
+            searchControl.Location = new System.Drawing.Point(46, 49);
+            searchControl.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            searchControl.Name = "searchControl";
+            searchControl.Size = new System.Drawing.Size(1753, 76);
+            searchControl.TabIndex = 0;
+            searchControl.SearchRequested += searchControl_SearchRequested;
             // 
             // weatherDisplayControl
             // 
@@ -57,7 +39,7 @@ namespace Forecaster.Forms
             weatherDisplayControl.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             weatherDisplayControl.Name = "weatherDisplayControl";
             weatherDisplayControl.Size = new System.Drawing.Size(1754, 380);
-            weatherDisplayControl.TabIndex = 20;
+            weatherDisplayControl.TabIndex = 1;
             // 
             // forecastDisplayControl
             // 
@@ -67,7 +49,7 @@ namespace Forecaster.Forms
             forecastDisplayControl.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             forecastDisplayControl.Name = "forecastDisplayControl";
             forecastDisplayControl.Size = new System.Drawing.Size(1754, 598);
-            forecastDisplayControl.TabIndex = 21;
+            forecastDisplayControl.TabIndex = 2;
             // 
             // WeatherForecastForm
             // 
@@ -79,8 +61,7 @@ namespace Forecaster.Forms
             ClientSize = new System.Drawing.Size(1849, 1178);
             Controls.Add(forecastDisplayControl);
             Controls.Add(weatherDisplayControl);
-            Controls.Add(searchButton);
-            Controls.Add(tbCity);
+            Controls.Add(searchControl);
             DoubleBuffered = true;
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -88,11 +69,9 @@ namespace Forecaster.Forms
             Text = "Forecaster";
             Load += WeatherForecastForm_Load;
             ResumeLayout(false);
-            PerformLayout();
         }
 
-        private System.Windows.Forms.TextBox tbCity;
-        private System.Windows.Forms.Button searchButton;
+        private Forecaster.Controls.SearchControl searchControl;
         private Forecaster.Controls.WeatherDisplayControl weatherDisplayControl;
         private Forecaster.Controls.ForecastDisplayControl forecastDisplayControl;
     }

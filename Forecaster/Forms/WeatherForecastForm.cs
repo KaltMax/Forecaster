@@ -25,12 +25,11 @@ namespace Forecaster.Forms
         {
             StartPosition = FormStartPosition.CenterScreen;
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            tbCity.Focus();
+            searchControl.FocusInput();
         }
 
-        private async void searchButton_Click(object sender, EventArgs e)
+        private async void searchControl_SearchRequested(string cityName)
         {
-            var cityName = tbCity.Text.Trim();
             if (string.IsNullOrEmpty(cityName))
             {
                 _messageBoxService.ShowWarning("Please enter a city name.");
@@ -39,7 +38,8 @@ namespace Forecaster.Forms
 
             try
             {
-                SetLoadingState(true);
+                searchControl.SetLoadingState(true);
+                Cursor = Cursors.WaitCursor;
                 await LoadWeatherDataAsync(cityName);
             }
             catch (Exception ex)
@@ -48,16 +48,9 @@ namespace Forecaster.Forms
             }
             finally
             {
-                SetLoadingState(false);
+                searchControl.SetLoadingState(false);
+                Cursor = Cursors.Default;
             }
-        }
-
-        private void SetLoadingState(bool isLoading)
-        {
-            searchButton.Enabled = !isLoading;
-            searchButton.Text = isLoading ? "Loading..." : "Search";
-            tbCity.Enabled = !isLoading;
-            Cursor = isLoading ? Cursors.WaitCursor : Cursors.Default;
         }
 
         private async Task LoadWeatherDataAsync(string cityName)
@@ -113,17 +106,6 @@ namespace Forecaster.Forms
             {
                 _messageBoxService.ShowError($"An unexpected error occurred while retrieving forecast data: {ex.Message}");
             }
-        }
-
-        private void tbCity_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode != Keys.Enter || string.IsNullOrWhiteSpace(tbCity.Text))
-            {
-                return;
-            }
-
-            searchButton.PerformClick();
-            e.SuppressKeyPress = true;
         }
     }
 }
