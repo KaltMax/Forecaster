@@ -59,6 +59,7 @@ namespace Forecaster.Forms
             BackgroundImage = Properties.Resources.background;
             BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             ClientSize = new System.Drawing.Size(1849, 1178);
+            Padding = new System.Windows.Forms.Padding(45);
             Controls.Add(forecastDisplayControl);
             Controls.Add(weatherDisplayControl);
             Controls.Add(searchControl);

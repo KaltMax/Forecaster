@@ -51,7 +51,7 @@ namespace Forecaster.Controls
 
             var dateLabel = new Label
             {
-                Text = DateTimeOffset.FromUnixTimeSeconds(forecastInfo.DateTime).ToString("dd.MM.yyyy"),
+                Text = DateTimeOffset.FromUnixTimeSeconds(forecastInfo.DateTime).ToLocalTime().ToString("dd.MM.yyyy"),
                 Font = new Font("Calibri", 11F, FontStyle.Bold),
                 ForeColor = Color.Black,
                 Location = new Point(10, 5),
@@ -61,7 +61,7 @@ namespace Forecaster.Controls
 
             var timeLabel = new Label
             {
-                Text = DateTimeOffset.FromUnixTimeSeconds(forecastInfo.DateTime).ToString("HH:mm"),
+                Text = DateTimeOffset.FromUnixTimeSeconds(forecastInfo.DateTime).ToLocalTime().ToString("HH:mm"),
                 Font = new Font("Calibri", 9F, FontStyle.Regular),
                 ForeColor = Color.Black,
                 Location = new Point(10, 27),
