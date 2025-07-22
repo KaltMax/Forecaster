@@ -1,0 +1,125 @@
+name: Build, Test and Release
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Copy appsettings.json
+        run: copy Forecaster/appsettings.example.json Forecaster/appsettings.json
+
+      - name: Build project
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-solution
+          path: |
+            **/bin/Release/**
+            **/obj/Release/**
+          retention-days: 1
+
+  test:
+    needs: build
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 9.0.x
+
+    - name: Download build artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: built-solution
+
+    - name: Copy appsettings.json
+      run: copy Forecaster/appsettings.example.json Forecaster/appsettings.json
+
+    - name: Run tests
+      run: dotnet test Test/Test.csproj --no-build --configuration Release
+
+  create-release:
+    needs: test
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout full repository
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Download build artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: built-solution
+        path: release-artifacts
+
+    - name: Prepare release package
+      shell: pwsh
+      run: |
+        $pkg = "release-package"
+        if (Test-Path $pkg) { Remove-Item $pkg -Recurse -Force }
+        New-Item -ItemType Directory -Path $pkg | Out-Null
+
+        Copy-Item -Path "release-artifacts\Forecaster\bin\Release\net9.0-windows\*" `
+                  -Destination $pkg -Recurse -Force
+
+        Copy-Item README.md -Destination $pkg -Force
+
+    - name: Zip release artifacts
+      run: |
+        Compress-Archive -Path release-package\* -DestinationPath Forecaster-latest.zip -Force
+
+    - name: Get current date
+      id: date
+      run: echo "date=$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')" >> $env:GITHUB_OUTPUT
+
+    - name: Delete existing release
+      uses: dev-drprasad/delete-tag-and-release@v1.0
+      with:
+        tag_name: latest
+        delete_release: true
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+      continue-on-error: true
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: latest
+        name: Forecaster Latest Build
+        body: |
+          Latest successful build of Forecaster
+          Build from branch: ${{ github.ref_name }}
+          Created: ${{ steps.date.outputs.date }}
+        files: Forecaster-latest.zip
+        draft: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

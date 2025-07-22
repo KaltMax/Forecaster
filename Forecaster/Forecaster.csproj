@@ -7,7 +7,7 @@
 		<ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
 		<NoWarn>CA1416</NoWarn>
 		<ApplicationIcon>res\weather-icon.ico</ApplicationIcon>
-		<Version>0.2.2</Version>
+		<Version>0.4.0</Version>
 	</PropertyGroup>
 	<ItemGroup>
 		<Content Include="appsettings.json">
