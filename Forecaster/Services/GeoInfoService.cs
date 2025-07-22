@@ -21,11 +21,13 @@ namespace Forecaster.Services
 
         public async Task<GeoInfo> GetGeoInfoAsync(string cityName)
         {
+            if (string.IsNullOrWhiteSpace(cityName))
+            {
+                throw new ArgumentException(@"City name cannot be null or empty.", nameof(cityName));
+            }
+
             try
             {
-                if (string.IsNullOrWhiteSpace(cityName))
-                    throw new ArgumentException(@"City name cannot be null or empty.", nameof(cityName));
-
                 var geoApiUrl = _urlBuilder.BuildGeoApiUrl(cityName);
 
                 using var response = await _httpClient.GetAsync(geoApiUrl);
