@@ -23,6 +23,13 @@ namespace Forecaster.Services
 
         public async Task<List<ForecastInfo>> GetForecastByCoordinatesAsync(double latitude, double longitude)
         {
+            if (latitude is < -90 or > 90 || longitude is < -180 or > 180)
+            {
+                throw new ArgumentOutOfRangeException(
+                    $"Invalid coordinates: Latitude must be between -90 and 90 degrees, and Longitude must be between -180 and 180 degrees. Provided values: Latitude = {latitude:F6}, Longitude = {longitude:F6}."
+                );
+            }
+
             try
             {
                 var forecastApiUrl = _urlBuilder.BuildForecastApiUrl(latitude, longitude);

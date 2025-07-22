@@ -24,13 +24,13 @@ namespace Forecaster.Services
 
         public async Task<WeatherInfo> GetWeatherAsync(string cityName)
         {
+            if (string.IsNullOrWhiteSpace(cityName))
+            {
+                throw new ArgumentException(@"City name cannot be null or empty.", nameof(cityName));
+            }
+
             try
             {
-                if (string.IsNullOrWhiteSpace(cityName))
-                {
-                    throw new ArgumentException(@"City name cannot be null or empty.", nameof(cityName));
-                }
-
                 var geoInfo = await _geoInfoService.GetGeoInfoAsync(cityName);
                 if (geoInfo == null)
                 {
@@ -47,8 +47,7 @@ namespace Forecaster.Services
             }
             catch (HttpRequestException ex)
             {
-                throw new InvalidOperationException(
-                    $"Failed to retrieve weather data for {cityName}. Please check your internet connection.", ex);
+                throw new InvalidOperationException($"Failed to retrieve weather data for {cityName}. Please check your internet connection.", ex);
             }
             catch (JsonException ex)
             {
@@ -76,8 +75,7 @@ namespace Forecaster.Services
             }
             catch (Exception ex)
             {
-                throw new InvalidOperationException($"Failed to get weather data for coordinates ({lat:F6}, {lon:F6}).",
-                    ex);
+                throw new InvalidOperationException($"Failed to get weather data for coordinates ({lat:F6}, {lon:F6}).", ex);
             }
         }
 
