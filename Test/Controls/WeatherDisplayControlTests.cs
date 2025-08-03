@@ -1,5 +1,6 @@
 ﻿using Forecaster.Controls;
 using Forecaster.Models.Domain;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace Test.Controls
@@ -36,7 +37,7 @@ namespace Test.Controls
 
             // Assert
             Assert.Equal("New York", control.Controls["resultCity"]!.Text);
-            Assert.Equal(measurementTime.ToString("dd.MM.yyyy, HH:mm"), control.Controls["resultMeasurementTime"]!.Text);
+            Assert.Equal(measurementTime.ToString("dddd, dd.MM.yyyy\nHH:mm", CultureInfo.InvariantCulture), control.Controls["resultMeasurementTime"]!.Text);
             Assert.Equal("25,5 °C", control.Controls["resultTemperature"]!.Text);
             Assert.Equal("60 %", control.Controls["resultHumidity"]!.Text);
             Assert.Equal("5,0 m/s", control.Controls["resultWindspeed"]!.Text);

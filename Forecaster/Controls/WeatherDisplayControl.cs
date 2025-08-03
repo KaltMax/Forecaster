@@ -1,5 +1,6 @@
 ﻿using Forecaster.Models.Domain;
 using System;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace Forecaster.Controls
@@ -14,7 +15,9 @@ namespace Forecaster.Controls
         public void DisplayWeather(WeatherInfo weatherInfo)
         {
             resultCity.Text = weatherInfo.CityName;
-            resultMeasurementTime.Text = DateTimeOffset.FromUnixTimeSeconds(weatherInfo.MeasurementTime).ToLocalTime().ToString("dd.MM.yyyy, HH:mm");
+            resultMeasurementTime.Text = DateTimeOffset.FromUnixTimeSeconds(weatherInfo.MeasurementTime)
+                .ToLocalTime()
+                .ToString("dddd, dd.MM.yyyy\nHH:mm", CultureInfo.InvariantCulture);
             resultTemperature.Text = $@"{weatherInfo.Temperature:F1} °C";
             resultHumidity.Text = $@"{weatherInfo.Humidity} %";
             resultWindspeed.Text = $@"{weatherInfo.WindSpeed:F1} m/s";

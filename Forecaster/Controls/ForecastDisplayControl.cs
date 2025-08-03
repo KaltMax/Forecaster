@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace Forecaster.Controls
@@ -51,7 +52,9 @@ namespace Forecaster.Controls
 
             var dateLabel = new Label
             {
-                Text = DateTimeOffset.FromUnixTimeSeconds(forecastInfo.DateTime).ToLocalTime().ToString("dd.MM.yyyy"),
+                Text = DateTimeOffset.FromUnixTimeSeconds(forecastInfo.DateTime)
+                    .ToLocalTime()
+                    .ToString("dddd, dd.MM.yyyy", CultureInfo.InvariantCulture),
                 Font = new Font("Calibri", 11F, FontStyle.Bold),
                 ForeColor = Color.Black,
                 Location = new Point(10, 5),

@@ -40,7 +40,7 @@
             lbTemperature.BackColor = System.Drawing.Color.Transparent;
             lbTemperature.Font = new System.Drawing.Font("Calibri", 13F, System.Drawing.FontStyle.Bold);
             lbTemperature.ForeColor = System.Drawing.Color.Black;
-            lbTemperature.Location = new System.Drawing.Point(330, 215);
+            lbTemperature.Location = new System.Drawing.Point(330, 239);
             lbTemperature.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lbTemperature.Name = "lbTemperature";
             lbTemperature.Size = new System.Drawing.Size(204, 42);
@@ -53,7 +53,7 @@
             resultTemperature.BackColor = System.Drawing.Color.Transparent;
             resultTemperature.Font = new System.Drawing.Font("Calibri", 13F);
             resultTemperature.ForeColor = System.Drawing.Color.Black;
-            resultTemperature.Location = new System.Drawing.Point(330, 264);
+            resultTemperature.Location = new System.Drawing.Point(330, 288);
             resultTemperature.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             resultTemperature.Name = "resultTemperature";
             resultTemperature.Size = new System.Drawing.Size(74, 42);
@@ -67,7 +67,7 @@
             lbHumidity.BackColor = System.Drawing.Color.Transparent;
             lbHumidity.Font = new System.Drawing.Font("Calibri", 13F, System.Drawing.FontStyle.Bold);
             lbHumidity.ForeColor = System.Drawing.Color.Black;
-            lbHumidity.Location = new System.Drawing.Point(580, 215);
+            lbHumidity.Location = new System.Drawing.Point(580, 239);
             lbHumidity.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lbHumidity.Name = "lbHumidity";
             lbHumidity.Size = new System.Drawing.Size(153, 42);
@@ -80,7 +80,7 @@
             resultHumidity.BackColor = System.Drawing.Color.Transparent;
             resultHumidity.Font = new System.Drawing.Font("Calibri", 13F);
             resultHumidity.ForeColor = System.Drawing.Color.Black;
-            resultHumidity.Location = new System.Drawing.Point(580, 264);
+            resultHumidity.Location = new System.Drawing.Point(580, 288);
             resultHumidity.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             resultHumidity.Name = "resultHumidity";
             resultHumidity.Size = new System.Drawing.Size(74, 42);
@@ -93,7 +93,7 @@
             lbWindSpeed.BackColor = System.Drawing.Color.Transparent;
             lbWindSpeed.Font = new System.Drawing.Font("Calibri", 13F, System.Drawing.FontStyle.Bold);
             lbWindSpeed.ForeColor = System.Drawing.Color.Black;
-            lbWindSpeed.Location = new System.Drawing.Point(830, 215);
+            lbWindSpeed.Location = new System.Drawing.Point(830, 239);
             lbWindSpeed.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lbWindSpeed.Name = "lbWindSpeed";
             lbWindSpeed.Size = new System.Drawing.Size(185, 42);
@@ -106,7 +106,7 @@
             resultWindspeed.BackColor = System.Drawing.Color.Transparent;
             resultWindspeed.Font = new System.Drawing.Font("Calibri", 13F);
             resultWindspeed.ForeColor = System.Drawing.Color.Black;
-            resultWindspeed.Location = new System.Drawing.Point(830, 264);
+            resultWindspeed.Location = new System.Drawing.Point(830, 288);
             resultWindspeed.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             resultWindspeed.Name = "resultWindspeed";
             resultWindspeed.Size = new System.Drawing.Size(74, 42);
@@ -142,7 +142,7 @@
             lbSunrise.BackColor = System.Drawing.Color.Transparent;
             lbSunrise.Font = new System.Drawing.Font("Calibri", 13F, System.Drawing.FontStyle.Bold);
             lbSunrise.ForeColor = System.Drawing.Color.Black;
-            lbSunrise.Location = new System.Drawing.Point(1330, 215);
+            lbSunrise.Location = new System.Drawing.Point(1330, 239);
             lbSunrise.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lbSunrise.Name = "lbSunrise";
             lbSunrise.Size = new System.Drawing.Size(126, 42);
@@ -155,7 +155,7 @@
             lbSunset.BackColor = System.Drawing.Color.Transparent;
             lbSunset.Font = new System.Drawing.Font("Calibri", 13F, System.Drawing.FontStyle.Bold);
             lbSunset.ForeColor = System.Drawing.Color.Black;
-            lbSunset.Location = new System.Drawing.Point(1580, 215);
+            lbSunset.Location = new System.Drawing.Point(1580, 239);
             lbSunset.Name = "lbSunset";
             lbSunset.Size = new System.Drawing.Size(117, 42);
             lbSunset.TabIndex = 14;
@@ -167,7 +167,7 @@
             resultSunrise.BackColor = System.Drawing.Color.Transparent;
             resultSunrise.Font = new System.Drawing.Font("Calibri", 13F);
             resultSunrise.ForeColor = System.Drawing.Color.Black;
-            resultSunrise.Location = new System.Drawing.Point(1330, 264);
+            resultSunrise.Location = new System.Drawing.Point(1330, 288);
             resultSunrise.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             resultSunrise.Name = "resultSunrise";
             resultSunrise.Size = new System.Drawing.Size(74, 42);
@@ -180,7 +180,7 @@
             resultSunset.BackColor = System.Drawing.Color.Transparent;
             resultSunset.Font = new System.Drawing.Font("Calibri", 13F);
             resultSunset.ForeColor = System.Drawing.Color.Black;
-            resultSunset.Location = new System.Drawing.Point(1580, 264);
+            resultSunset.Location = new System.Drawing.Point(1580, 288);
             resultSunset.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             resultSunset.Name = "resultSunset";
             resultSunset.Size = new System.Drawing.Size(74, 42);
@@ -192,7 +192,7 @@
             resultPressure.AutoSize = true;
             resultPressure.BackColor = System.Drawing.Color.Transparent;
             resultPressure.Font = new System.Drawing.Font("Calibri", 13F);
-            resultPressure.Location = new System.Drawing.Point(1080, 264);
+            resultPressure.Location = new System.Drawing.Point(1080, 288);
             resultPressure.Name = "resultPressure";
             resultPressure.Size = new System.Drawing.Size(74, 42);
             resultPressure.TabIndex = 20;
@@ -203,7 +203,7 @@
             label1.AutoSize = true;
             label1.BackColor = System.Drawing.Color.Transparent;
             label1.Font = new System.Drawing.Font("Calibri", 13F, System.Drawing.FontStyle.Bold);
-            label1.Location = new System.Drawing.Point(1080, 215);
+            label1.Location = new System.Drawing.Point(1080, 239);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(144, 42);
             label1.TabIndex = 19;
@@ -214,7 +214,7 @@
             resultMeasurementTime.AutoSize = true;
             resultMeasurementTime.BackColor = System.Drawing.Color.Transparent;
             resultMeasurementTime.Font = new System.Drawing.Font("Calibri", 14F, System.Drawing.FontStyle.Bold);
-            resultMeasurementTime.Location = new System.Drawing.Point(330, 115);
+            resultMeasurementTime.Location = new System.Drawing.Point(330, 110);
             resultMeasurementTime.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             resultMeasurementTime.Name = "resultMeasurementTime";
             resultMeasurementTime.Size = new System.Drawing.Size(82, 46);
@@ -226,7 +226,7 @@
             resultCity.AutoSize = true;
             resultCity.BackColor = System.Drawing.Color.Transparent;
             resultCity.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Bold);
-            resultCity.Location = new System.Drawing.Point(330, 45);
+            resultCity.Location = new System.Drawing.Point(330, 40);
             resultCity.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             resultCity.Name = "resultCity";
             resultCity.Size = new System.Drawing.Size(105, 59);
