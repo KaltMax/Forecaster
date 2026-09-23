@@ -3,7 +3,7 @@ using Forecaster.Models.Domain;
 using Forecaster.Models.Shared;
 using Forecaster.Services;
 using Forecaster.Services.Interfaces;
-using Moq;
+using NSubstitute;
 using RichardSzalay.MockHttp;
 using System.Net;
 using System.Text.Json;
@@ -12,18 +12,18 @@ namespace Test.Services
 {
     public class WeatherServiceTests
     {
-        private readonly Mock<IOpenWeatherMapUrlBuilder> _urlBuilderMock;
-        private readonly Mock<IGeoInfoService> _geoInfoServiceMock;
+        private readonly IOpenWeatherMapUrlBuilder _urlBuilder;
+        private readonly IGeoInfoService _geoInfoServiceSub;
         private readonly MockHttpMessageHandler _mockHttpHttpMessageHandler;
         private readonly WeatherService _weatherService;
 
         public WeatherServiceTests()
         {
-            _urlBuilderMock = new Mock<IOpenWeatherMapUrlBuilder>();
-            _geoInfoServiceMock = new Mock<IGeoInfoService>();
+            _urlBuilder = Substitute.For<IOpenWeatherMapUrlBuilder>();
+            _geoInfoServiceSub = Substitute.For<IGeoInfoService>();
             _mockHttpHttpMessageHandler = new MockHttpMessageHandler();
             var httpClient = new HttpClient(_mockHttpHttpMessageHandler);
-            _weatherService = new WeatherService(httpClient, _urlBuilderMock.Object, _geoInfoServiceMock.Object);
+            _weatherService = new WeatherService(httpClient, _urlBuilder, _geoInfoServiceSub);
         }
 
         [Fact]
@@ -33,13 +33,9 @@ namespace Test.Services
             var cityName = "New York";
             var geoInfo = new GeoInfo { Name = "New York", Latitude = 40.7128, Longitude = -74.0060, Country = "US" };
 
-            _geoInfoServiceMock
-                .Setup(service => service.GetGeoInfoAsync(cityName))
-                .ReturnsAsync(geoInfo);
+            _geoInfoServiceSub.GetGeoInfoAsync(cityName).Returns(geoInfo);
 
-            _urlBuilderMock
-                .Setup(builder => builder.BuildWeatherApiUrl(geoInfo.Latitude, geoInfo.Longitude))
-                .Returns("http://mockurl.com");
+            _urlBuilder.BuildWeatherApiUrl(geoInfo.Latitude, geoInfo.Longitude).Returns("http://mockurl.com");
 
             _mockHttpHttpMessageHandler
                 .When("http://mockurl.com")
@@ -78,9 +74,7 @@ namespace Test.Services
             // Arrange
             var cityName = "Unknown City";
 
-            _geoInfoServiceMock
-                .Setup(service => service.GetGeoInfoAsync(cityName))
-                .ReturnsAsync((GeoInfo)null!);
+            _geoInfoServiceSub.GetGeoInfoAsync(cityName).Returns((GeoInfo)null!);
 
             // Act
             var result = await _weatherService.GetWeatherAsync(cityName);
@@ -96,13 +90,9 @@ namespace Test.Services
             var cityName = "New York";
             var geoInfo = new GeoInfo { Name = "New York", Latitude = 40.7128, Longitude = -74.0060, Country = "US" };
 
-            _geoInfoServiceMock
-                .Setup(service => service.GetGeoInfoAsync(cityName))
-                .ReturnsAsync(geoInfo);
+            _geoInfoServiceSub.GetGeoInfoAsync(cityName).Returns(geoInfo);
 
-            _urlBuilderMock
-                .Setup(builder => builder.BuildWeatherApiUrl(geoInfo.Latitude, geoInfo.Longitude))
-                .Returns("http://mockurl.com");
+            _urlBuilder.BuildWeatherApiUrl(geoInfo.Latitude, geoInfo.Longitude).Returns("http://mockurl.com");
 
             _mockHttpHttpMessageHandler
                 .When("http://mockurl.com")
@@ -119,13 +109,9 @@ namespace Test.Services
             var cityName = "New York";
             var geoInfo = new GeoInfo { Name = "New York", Latitude = 40.7128, Longitude = -74.0060, Country = "US" };
 
-            _geoInfoServiceMock
-                .Setup(service => service.GetGeoInfoAsync(cityName))
-                .ReturnsAsync(geoInfo);
+            _geoInfoServiceSub.GetGeoInfoAsync(cityName).Returns(geoInfo);
 
-            _urlBuilderMock
-                .Setup(builder => builder.BuildWeatherApiUrl(geoInfo.Latitude, geoInfo.Longitude))
-                .Returns("http://mockurl.com");
+            _urlBuilder.BuildWeatherApiUrl(geoInfo.Latitude, geoInfo.Longitude).Returns("http://mockurl.com");
 
             _mockHttpHttpMessageHandler
                 .When("http://mockurl.com")

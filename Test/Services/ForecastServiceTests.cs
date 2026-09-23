@@ -2,7 +2,7 @@
 using Forecaster.Models.Shared;
 using Forecaster.Services;
 using Forecaster.Services.Interfaces;
-using Moq;
+using NSubstitute;
 using RichardSzalay.MockHttp;
 using System.Net;
 using System.Text.Json;
@@ -11,16 +11,16 @@ namespace Test.Services
 {
     public class ForecastServiceTests
     {
-        private readonly Mock<IOpenWeatherMapUrlBuilder> _mockWeatherMapUrlBuilder;
+        private readonly IOpenWeatherMapUrlBuilder _urlBuilder;
         private readonly MockHttpMessageHandler _mockHttpMessageHandler;
         private readonly ForecastService _forecastService;
 
         public ForecastServiceTests()
         {
-            _mockWeatherMapUrlBuilder = new Mock<IOpenWeatherMapUrlBuilder>();
+            _urlBuilder = Substitute.For<IOpenWeatherMapUrlBuilder>();
             _mockHttpMessageHandler = new MockHttpMessageHandler();
             var httpClient = new HttpClient(_mockHttpMessageHandler);
-            _forecastService = new ForecastService(httpClient, _mockWeatherMapUrlBuilder.Object);
+            _forecastService = new ForecastService(httpClient, _urlBuilder);
         }
 
         [Fact]
@@ -44,9 +44,7 @@ namespace Test.Services
                 }
             };
 
-            _mockWeatherMapUrlBuilder
-                .Setup(builder => builder.BuildForecastApiUrl(latitude, longitude))
-                .Returns(apiUrl);
+            _urlBuilder.BuildForecastApiUrl(latitude, longitude).Returns(apiUrl);
 
             _mockHttpMessageHandler
                 .When(apiUrl)
@@ -85,9 +83,7 @@ namespace Test.Services
             var longitude = -74.0060;
             var apiUrl = "https://api.openweathermap.org/data/2.5/forecast";
 
-            _mockWeatherMapUrlBuilder
-                .Setup(builder => builder.BuildForecastApiUrl(latitude, longitude))
-                .Returns(apiUrl);
+            _urlBuilder.BuildForecastApiUrl(latitude, longitude).Returns(apiUrl);
 
             _mockHttpMessageHandler
                 .When(apiUrl)

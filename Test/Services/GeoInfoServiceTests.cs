@@ -1,7 +1,7 @@
 ﻿using Forecaster.Models.Domain;
 using Forecaster.Services;
 using Forecaster.Services.Interfaces;
-using Moq;
+using NSubstitute;
 using RichardSzalay.MockHttp;
 using System.Net;
 using System.Text.Json;
@@ -10,17 +10,17 @@ namespace Test.Services
 {
     public class GeoInfoServiceTests
     {
-        private readonly Mock<IOpenWeatherMapUrlBuilder> _urlBuilderMock;
+        private readonly IOpenWeatherMapUrlBuilder _urlBuilder;
         private readonly MockHttpMessageHandler _mockHttpHttpMessageHandler;
         private readonly GeoInfoService _geoInfoService;
 
         public GeoInfoServiceTests()
         {
-            _urlBuilderMock = new Mock<IOpenWeatherMapUrlBuilder>();
+            _urlBuilder = Substitute.For<IOpenWeatherMapUrlBuilder>();
             _mockHttpHttpMessageHandler = new MockHttpMessageHandler();
 
             var httpClient = new HttpClient(_mockHttpHttpMessageHandler);
-            _geoInfoService = new GeoInfoService(httpClient, _urlBuilderMock.Object);
+            _geoInfoService = new GeoInfoService(httpClient, _urlBuilder);
         }
 
         [Fact]
@@ -34,7 +34,7 @@ namespace Test.Services
             var apiResponse = new List<GeoInfo> { expectedGeoInfo };
             var jsonResponse = JsonSerializer.Serialize(apiResponse);
 
-            _urlBuilderMock.Setup(x => x.BuildGeoApiUrl(cityName)).Returns(fakeApiUrl);
+            _urlBuilder.BuildGeoApiUrl(cityName).Returns(fakeApiUrl);
 
             // Use MockHttpMessageHandler to mock the HTTP response
             _mockHttpHttpMessageHandler.When(fakeApiUrl).Respond("application/json", jsonResponse);
@@ -57,7 +57,7 @@ namespace Test.Services
             var cityName = "UnknownCity";
             var fakeApiUrl = "http://fake-api.com/geo/unknown";
 
-            _urlBuilderMock.Setup(x => x.BuildGeoApiUrl(cityName)).Returns(fakeApiUrl);
+            _urlBuilder.BuildGeoApiUrl(cityName).Returns(fakeApiUrl);
 
             // Mock an empty JSON array response
             _mockHttpHttpMessageHandler.When(fakeApiUrl).Respond("application/json", "[]");
@@ -85,7 +85,7 @@ namespace Test.Services
             var cityName = "London";
             var fakeApiUrl = "http://fake-api.com/geo/london";
 
-            _urlBuilderMock.Setup(x => x.BuildGeoApiUrl(cityName)).Returns(fakeApiUrl);
+            _urlBuilder.BuildGeoApiUrl(cityName).Returns(fakeApiUrl);
 
             // Mock a 404 Not Found response
             _mockHttpHttpMessageHandler.When(fakeApiUrl).Respond(HttpStatusCode.NotFound);
@@ -101,7 +101,7 @@ namespace Test.Services
             var cityName = "London";
             var fakeApiUrl = "http://fake-api.com/geo/london";
 
-            _urlBuilderMock.Setup(x => x.BuildGeoApiUrl(cityName)).Returns(fakeApiUrl);
+            _urlBuilder.BuildGeoApiUrl(cityName).Returns(fakeApiUrl);
 
             // Simulate an unexpected exception by throwing from the handler
             _mockHttpHttpMessageHandler.When(fakeApiUrl).Throw(new Exception("Unexpected error"));
