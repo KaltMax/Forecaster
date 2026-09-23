@@ -1,5 +1,8 @@
 ﻿using Forecaster.Controls;
 using Forecaster.Models.Domain;
+using Forecaster.Services.Interfaces;
+using NSubstitute;
+using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
 
@@ -108,6 +111,33 @@ namespace Test.Controls
             Assert.Contains(labels, l => l.Text == @"Temp:             25,5 °C");
             Assert.Contains(labels, l => l.Text == @"Humidity:         60 %");
             Assert.Contains(labels, l => l.Text == @"Clear");
+        }
+
+        [Fact]
+        public void DisplayForecasts_WithIconService_SetsIconOfEachItem()
+        {
+            // Arrange
+            var control = new ForecastDisplayControl();
+            using var sunIcon = new Bitmap(1, 1);
+            using var rainIcon = new Bitmap(1, 1);
+            var iconService = Substitute.For<IWeatherIconService>();
+            iconService.GetIconAsync("01d").Returns(sunIcon);
+            iconService.GetIconAsync("09d").Returns(rainIcon);
+            control.SetIconService(iconService);
+
+            var forecasts = new List<ForecastInfo>
+            {
+                new ForecastInfo { Icon = "01d", DateTime = 1625247600 },
+                new ForecastInfo { Icon = "09d", DateTime = 1625258400 }
+            };
+
+            // Act
+            control.DisplayForecasts(forecasts);
+
+            // Assert
+            var items = control.Controls["forecastScrollPanel"]!.Controls.OfType<Panel>().ToList();
+            Assert.Same(sunIcon, items[0].Controls.OfType<PictureBox>().Single().Image);
+            Assert.Same(rainIcon, items[1].Controls.OfType<PictureBox>().Single().Image);
         }
     }
 }

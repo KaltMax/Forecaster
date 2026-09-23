@@ -1,5 +1,8 @@
 ﻿using Forecaster.Controls;
 using Forecaster.Models.Domain;
+using Forecaster.Services.Interfaces;
+using NSubstitute;
+using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
 
@@ -60,6 +63,10 @@ namespace Test.Controls
         {
             // Arrange
             var control = new WeatherDisplayControl();
+            var iconService = Substitute.For<IWeatherIconService>();
+            iconService.GetIconAsync("invalid_icon").Returns((Image?)null);
+            control.SetIconService(iconService);
+
             var weatherInfo = new WeatherInfo
             {
                 Icon = "invalid_icon"
@@ -70,8 +77,26 @@ namespace Test.Controls
 
             // Assert
             var weatherPicture = control.Controls["weatherPicture"] as PictureBox;
-            Assert.NotNull(weatherPicture); 
+            Assert.NotNull(weatherPicture);
             Assert.Null(weatherPicture!.Image);
+        }
+
+        [Fact]
+        public void DisplayWeather_ValidIcon_SetsWeatherPictureFromIconService()
+        {
+            // Arrange
+            var control = new WeatherDisplayControl();
+            using var icon = new Bitmap(1, 1);
+            var iconService = Substitute.For<IWeatherIconService>();
+            iconService.GetIconAsync("01d").Returns(icon);
+            control.SetIconService(iconService);
+
+            // Act
+            control.DisplayWeather(new WeatherInfo { Icon = "01d" });
+
+            // Assert
+            var weatherPicture = control.Controls["weatherPicture"] as PictureBox;
+            Assert.Same(icon, weatherPicture!.Image);
         }
     }
 }
