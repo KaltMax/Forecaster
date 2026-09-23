@@ -27,6 +27,8 @@ namespace Forecaster
                     services.AddHttpClient<IWeatherService, WeatherService>();
                     services.AddHttpClient<IForecastService, ForecastService>();
                     services.AddHttpClient<IGeoInfoService, GeoInfoService>();
+                    services.AddHttpClient(WeatherIconService.HttpClientName);
+                    services.AddSingleton<IWeatherIconService, WeatherIconService>();
                     services.AddTransient<WeatherForecastForm>();
                 })
                 .Build();

@@ -1,4 +1,5 @@
 ﻿using Forecaster.Models.Domain;
+using Forecaster.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -9,9 +10,16 @@ namespace Forecaster.Controls
 {
     public partial class ForecastDisplayControl : UserControl
     {
+        private IWeatherIconService _iconService;
+
         public ForecastDisplayControl()
         {
             InitializeComponent();
+        }
+
+        public void SetIconService(IWeatherIconService iconService)
+        {
+            _iconService = iconService;
         }
 
         public void DisplayForecasts(List<ForecastInfo> forecasts)
@@ -129,17 +137,26 @@ namespace Forecaster.Controls
             return itemPanel;
         }
 
-        private void LoadForecastIcon(PictureBox pictureBox, string iconCode)
+        private async void LoadForecastIcon(PictureBox pictureBox, string iconCode)
         {
+            if (_iconService == null)
+            {
+                return;
+            }
+
             try
             {
-                var iconUrl = $"https://openweathermap.org/img/wn/{iconCode}.png";
-                pictureBox.Load(iconUrl);
+                var icon = await _iconService.GetIconAsync(iconCode);
+
+                // The item may have been removed by a new search while the icon was loading
+                if (!pictureBox.IsDisposed)
+                {
+                    pictureBox.Image = icon;
+                }
             }
             catch
             {
                 // Handle icon loading failure silently
-                pictureBox.Image = null;
             }
         }
     }

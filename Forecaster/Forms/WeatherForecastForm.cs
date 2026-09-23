@@ -13,12 +13,17 @@ namespace Forecaster.Forms
         private readonly IForecastService _forecastService;
         private readonly IMessageBoxService _messageBoxService;
 
-        public WeatherForecastForm(IWeatherService weatherService, IForecastService forecastService, IMessageBoxService messageBoxService)
+        public WeatherForecastForm(IWeatherService weatherService, IForecastService forecastService, IMessageBoxService messageBoxService,
+            IWeatherIconService weatherIconService)
         {
             _weatherService = weatherService ?? throw new ArgumentNullException(nameof(weatherService));
             _forecastService = forecastService ?? throw new ArgumentNullException(nameof(forecastService));
             _messageBoxService = messageBoxService ?? throw new ArgumentNullException(nameof(messageBoxService));
+            ArgumentNullException.ThrowIfNull(weatherIconService);
             InitializeComponent();
+
+            weatherDisplayControl.SetIconService(weatherIconService);
+            forecastDisplayControl.SetIconService(weatherIconService);
         }
 
         private void WeatherForecastForm_Load(object sender, EventArgs e)
