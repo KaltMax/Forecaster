@@ -86,7 +86,7 @@ namespace Test.Services
         }
 
         [Fact]
-        public async Task GetWeatherAsync_HttpRequestException_ThrowsInvalidOperationException()
+        public async Task GetWeatherAsync_ServerError_ThrowsServiceError()
         {
             // Arrange
             var cityName = "New York";
@@ -101,11 +101,13 @@ namespace Test.Services
                 .Respond(HttpStatusCode.InternalServerError);
 
             // Act & Assert
-            await Assert.ThrowsAsync<InvalidOperationException>(() => _weatherService.GetWeatherAsync(cityName));
+            var exception = await Assert.ThrowsAsync<WeatherApiException>(() => _weatherService.GetWeatherAsync(cityName));
+            Assert.Equal(WeatherApiErrorKind.ServiceError, exception.Kind);
+            Assert.Contains("HTTP 500", exception.Message);
         }
 
         [Fact]
-        public async Task GetWeatherAsync_InvalidJsonResponse_ThrowsInvalidOperationException()
+        public async Task GetWeatherAsync_InvalidJsonResponse_ThrowsInvalidResponseError()
         {
             // Arrange
             var cityName = "New York";
@@ -120,7 +122,28 @@ namespace Test.Services
                 .Respond("application/json", "{");
 
             // Act & Assert
-            await Assert.ThrowsAsync<InvalidOperationException>(() => _weatherService.GetWeatherAsync(cityName));
+            var exception = await Assert.ThrowsAsync<WeatherApiException>(() => _weatherService.GetWeatherAsync(cityName));
+            Assert.Equal(WeatherApiErrorKind.InvalidResponse, exception.Kind);
+        }
+
+        [Fact]
+        public async Task GetWeatherAsync_ResponseMissingRequiredData_ThrowsInvalidResponseError()
+        {
+            // Arrange
+            var cityName = "New York";
+            var geoInfo = new GeoInfo { Name = "New York", Latitude = 40.7128, Longitude = -74.0060, Country = "US" };
+
+            _geoInfoServiceSub.GetGeoInfoAsync(cityName).Returns(geoInfo);
+            _urlBuilder.BuildWeatherApiUrl(geoInfo.Latitude, geoInfo.Longitude).Returns("http://mockurl.com");
+
+            // Valid JSON, but without the "main", "weather", "wind" and "sys" sections
+            _mockHttpHttpMessageHandler
+                .When("http://mockurl.com")
+                .Respond("application/json", "{\"name\":\"New York\"}");
+
+            // Act & Assert
+            var exception = await Assert.ThrowsAsync<WeatherApiException>(() => _weatherService.GetWeatherAsync(cityName));
+            Assert.Equal(WeatherApiErrorKind.InvalidResponse, exception.Kind);
         }
     }
 }

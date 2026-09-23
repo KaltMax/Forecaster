@@ -79,38 +79,35 @@ namespace Test.Services
         }
 
         [Fact]
-        public async Task GetGeoInfoAsync_WhenApiCallFails_ThrowsHttpRequestException()
+        public async Task GetGeoInfoAsync_WhenApiKeyIsRejected_ThrowsInvalidApiKeyError()
         {
             // Arrange
             var cityName = "London";
             var fakeApiUrl = "http://fake-api.com/geo/london";
 
             _urlBuilder.BuildGeoApiUrl(cityName).Returns(fakeApiUrl);
-
-            // Mock a 404 Not Found response
-            _mockHttpHttpMessageHandler.When(fakeApiUrl).Respond(HttpStatusCode.NotFound);
+            _mockHttpHttpMessageHandler.When(fakeApiUrl).Respond(HttpStatusCode.Unauthorized);
 
             // Act & Assert
-            await Assert.ThrowsAsync<HttpRequestException>(() => _geoInfoService.GetGeoInfoAsync(cityName));
+            var exception = await Assert.ThrowsAsync<WeatherApiException>(() => _geoInfoService.GetGeoInfoAsync(cityName));
+            Assert.Equal(WeatherApiErrorKind.InvalidApiKey, exception.Kind);
         }
 
         [Fact]
-        public async Task GetGeoInfoAsync_WhenUnexpectedExceptionOccurs_ThrowsInvalidOperationException()
+        public async Task GetGeoInfoAsync_WhenConnectionFails_ThrowsNetworkError()
         {
             // Arrange
             var cityName = "London";
             var fakeApiUrl = "http://fake-api.com/geo/london";
 
             _urlBuilder.BuildGeoApiUrl(cityName).Returns(fakeApiUrl);
-
-            // Simulate an unexpected exception by throwing from the handler
-            _mockHttpHttpMessageHandler.When(fakeApiUrl).Throw(new Exception("Unexpected error"));
+            var connectionError = new HttpRequestException("No such host is known.");
+            _mockHttpHttpMessageHandler.When(fakeApiUrl).Throw(connectionError);
 
             // Act & Assert
-            var exception = await Assert.ThrowsAsync<InvalidOperationException>(() => _geoInfoService.GetGeoInfoAsync(cityName));
-            Assert.Equal($"Failed to get geographic information for {cityName}.", exception.Message);
-            Assert.IsType<Exception>(exception.InnerException);
-            Assert.Equal("Unexpected error", exception.InnerException?.Message);
+            var exception = await Assert.ThrowsAsync<WeatherApiException>(() => _geoInfoService.GetGeoInfoAsync(cityName));
+            Assert.Equal(WeatherApiErrorKind.NetworkError, exception.Kind);
+            Assert.Same(connectionError, exception.InnerException);
         }
     }
 }

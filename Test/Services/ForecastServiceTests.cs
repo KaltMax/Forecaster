@@ -76,7 +76,7 @@ namespace Test.Services
         }
 
         [Fact]
-        public async Task GetForecastByCoordinatesAsync_HttpRequestFails_ThrowsHttpRequestException()
+        public async Task GetForecastByCoordinatesAsync_ServerError_ThrowsServiceError()
         {
             // Arrange
             var latitude = 40.7128;
@@ -90,8 +90,44 @@ namespace Test.Services
                 .Respond(HttpStatusCode.InternalServerError);
 
             // Act & Assert
-            await Assert.ThrowsAsync<HttpRequestException>(() =>
+            var exception = await Assert.ThrowsAsync<WeatherApiException>(() =>
                 _forecastService.GetForecastByCoordinatesAsync(latitude, longitude));
+            Assert.Equal(WeatherApiErrorKind.ServiceError, exception.Kind);
+        }
+
+        [Fact]
+        public async Task GetForecastByCoordinatesAsync_ResponseWithoutList_ThrowsInvalidResponseError()
+        {
+            // Arrange
+            var latitude = 40.7128;
+            var longitude = -74.0060;
+            var apiUrl = "https://api.openweathermap.org/data/2.5/forecast";
+
+            _urlBuilder.BuildForecastApiUrl(latitude, longitude).Returns(apiUrl);
+            _mockHttpMessageHandler.When(apiUrl).Respond("application/json", "{}");
+
+            // Act & Assert
+            var exception = await Assert.ThrowsAsync<WeatherApiException>(() =>
+                _forecastService.GetForecastByCoordinatesAsync(latitude, longitude));
+            Assert.Equal(WeatherApiErrorKind.InvalidResponse, exception.Kind);
+        }
+
+        [Fact]
+        public async Task GetForecastByCoordinatesAsync_EmptyList_ReturnsEmptyList()
+        {
+            // Arrange
+            var latitude = 40.7128;
+            var longitude = -74.0060;
+            var apiUrl = "https://api.openweathermap.org/data/2.5/forecast";
+
+            _urlBuilder.BuildForecastApiUrl(latitude, longitude).Returns(apiUrl);
+            _mockHttpMessageHandler.When(apiUrl).Respond("application/json", "{\"list\":[]}");
+
+            // Act
+            var result = await _forecastService.GetForecastByCoordinatesAsync(latitude, longitude);
+
+            // Assert
+            Assert.Empty(result);
         }
     }
 }
