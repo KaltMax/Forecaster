@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Forecaster.Services
@@ -30,33 +29,17 @@ namespace Forecaster.Services
                 );
             }
 
-            try
-            {
-                var forecastApiUrl = _urlBuilder.BuildForecastApiUrl(latitude, longitude);
+            var forecastApiUrl = _urlBuilder.BuildForecastApiUrl(latitude, longitude);
+            var forecastResponse = await _httpClient.GetFromOpenWeatherMapAsync<ForecastResponse>(forecastApiUrl);
 
-                using var response = await _httpClient.GetAsync(forecastApiUrl);
-                response.EnsureSuccessStatusCode();
-
-                var responseContent = await response.Content.ReadAsStringAsync();
-                var forecastResponse = JsonSerializer.Deserialize<ForecastResponse>(responseContent);
-
-                return MapToForecastInfoList(forecastResponse);
-            }
-            catch (HttpRequestException)
-            {
-                throw;
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidOperationException($"Failed to get forecast data for coordinates ({latitude:F6}, {longitude:F6}).", ex);
-            }
+            return MapToForecastInfoList(forecastResponse);
         }
 
         private List<ForecastInfo> MapToForecastInfoList(ForecastResponse forecastResponse)
         {
-            if (forecastResponse?.List == null)
+            if (forecastResponse.List == null)
             {
-                return null;
+                throw new WeatherApiException(WeatherApiErrorKind.InvalidResponse, "missing forecast list");
             }
 
             var forecastInfos = (from forecast in forecastResponse.List
@@ -71,7 +54,7 @@ namespace Forecaster.Services
                 DateTime = forecast.Dt
             }).ToList();
 
-            return forecastInfos.Count > 0 ? forecastInfos : null;
+            return forecastInfos;
         }
     }
 }

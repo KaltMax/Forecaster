@@ -3,7 +3,6 @@ using Forecaster.Models.Domain;
 using Forecaster.Services.Interfaces;
 using System;
 using System.Net.Http;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Forecaster.Services
@@ -29,66 +28,31 @@ namespace Forecaster.Services
                 throw new ArgumentException(@"City name cannot be null or empty.", nameof(cityName));
             }
 
-            try
+            // Returns null only when the city was not found. API failures throw a WeatherApiException
+            var geoInfo = await _geoInfoService.GetGeoInfoAsync(cityName);
+            if (geoInfo == null)
             {
-                var geoInfo = await _geoInfoService.GetGeoInfoAsync(cityName);
-                if (geoInfo == null)
-                {
-                    return null;
-                }
-
-                var weatherInfo = await GetWeatherByCoordinatesAsync(geoInfo.Latitude, geoInfo.Longitude);
-                if (weatherInfo != null)
-                {
-                    weatherInfo.CityName = $"{geoInfo.Name}, {geoInfo.Country}";
-                }
-
-                return weatherInfo;
+                return null;
             }
-            catch (HttpRequestException ex)
-            {
-                throw new InvalidOperationException($"Failed to retrieve weather data for {cityName}. Please check your internet connection.", ex);
-            }
-            catch (JsonException ex)
-            {
-                throw new InvalidOperationException($"Failed to parse weather data for {cityName}.", ex);
-            }
-        }
 
-        private async Task<WeatherInfo> GetWeatherByCoordinatesAsync(double lat, double lon)
-        {
-            try
-            {
-                var weatherApiUrl = _urlBuilder.BuildWeatherApiUrl(lat, lon);
+            var weatherApiUrl = _urlBuilder.BuildWeatherApiUrl(geoInfo.Latitude, geoInfo.Longitude);
+            var weatherResponse = await _httpClient.GetFromOpenWeatherMapAsync<WeatherResponse>(weatherApiUrl);
 
-                using var response = await _httpClient.GetAsync(weatherApiUrl);
-                response.EnsureSuccessStatusCode();
-
-                var responseContent = await response.Content.ReadAsStringAsync();
-                var weatherResponse = JsonSerializer.Deserialize<WeatherResponse>(responseContent);
-
-                return MapToWeatherInfo(weatherResponse);
-            }
-            catch (HttpRequestException)
-            {
-                throw;
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidOperationException($"Failed to get weather data for coordinates ({lat:F6}, {lon:F6}).", ex);
-            }
+            var weatherInfo = MapToWeatherInfo(weatherResponse);
+            weatherInfo.CityName = $"{geoInfo.Name}, {geoInfo.Country}";
+            return weatherInfo;
         }
 
         private WeatherInfo MapToWeatherInfo(WeatherResponse weatherResponse)
         {
-            if (weatherResponse?.Main == null ||
+            if (weatherResponse.Main == null ||
                 weatherResponse.Weather == null ||
                 weatherResponse.Weather.Count == 0 ||
                 weatherResponse.Wind == null ||
                 weatherResponse.Sys == null ||
                 weatherResponse.Coord == null)
             {
-                return null;
+                throw new WeatherApiException(WeatherApiErrorKind.InvalidResponse, "incomplete weather data");
             }
 
             return new WeatherInfo

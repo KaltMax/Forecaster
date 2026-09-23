@@ -1,4 +1,5 @@
 ﻿using Forecaster.Models.Domain;
+using Forecaster.Services;
 using Forecaster.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -47,8 +48,14 @@ namespace Forecaster.Forms
                 Cursor = Cursors.WaitCursor;
                 await LoadWeatherDataAsync(cityName);
             }
+            catch (WeatherApiException ex)
+            {
+                // The message is already written for the user
+                _messageBoxService.ShowError(ex.Message);
+            }
             catch (Exception ex)
             {
+                // Anything else is a bug. Async void must never let an exception escape
                 _messageBoxService.ShowError($"An unexpected error occurred: {ex.Message}");
             }
             finally
@@ -60,56 +67,38 @@ namespace Forecaster.Forms
 
         private async Task LoadWeatherDataAsync(string cityName)
         {
-            try
-            {
-                WeatherInfo weatherInfo = await _weatherService.GetWeatherAsync(cityName);
+            WeatherInfo weatherInfo = await _weatherService.GetWeatherAsync(cityName);
 
-                if (weatherInfo != null)
-                {
-                    weatherDisplayControl.DisplayWeather(weatherInfo);
-                    await LoadForecastDataAsync(weatherInfo);
-                }
-                else
-                {
-                    _messageBoxService.ShowError("Weather information could not be retrieved. Please check the city name and try again.");
-                }
-            }
-            catch (ArgumentException ex)
+            if (weatherInfo == null)
             {
-                _messageBoxService.ShowWarning($"Invalid input: {ex.Message}");
+                _messageBoxService.ShowWarning($"The city \"{cityName}\" could not be found. Please check the spelling and try again.");
+                return;
             }
-            catch (InvalidOperationException ex)
-            {
-                _messageBoxService.ShowError($"Service error: {ex.Message}");
-            }
-            catch (Exception ex)
-            {
-                _messageBoxService.ShowError($"An unexpected error occurred while retrieving weather data: {ex.Message}");
-            }
+
+            weatherDisplayControl.DisplayWeather(weatherInfo);
+            await LoadForecastDataAsync(weatherInfo);
         }
 
         private async Task LoadForecastDataAsync(WeatherInfo weatherInfo)
         {
+            List<ForecastInfo> forecastInfos;
             try
             {
-                List<ForecastInfo> forecastInfos = await _forecastService.GetForecastByCoordinatesAsync(weatherInfo.Latitude, weatherInfo.Longitude);
+                forecastInfos = await _forecastService.GetForecastByCoordinatesAsync(weatherInfo.Latitude, weatherInfo.Longitude);
+            }
+            catch (WeatherApiException ex)
+            {
+                // The current weather is already shown, so remove the previous city's forecast instead of leaving it next to it
+                forecastDisplayControl.DisplayForecasts(null);
+                _messageBoxService.ShowError($"The current weather was loaded, but the forecast could not be loaded.\n\n{ex.Message}");
+                return;
+            }
 
-                if (forecastInfos is { Count: > 0 })
-                {
-                    forecastDisplayControl.DisplayForecasts(forecastInfos);
-                }
-                else
-                {
-                    _messageBoxService.ShowError("Forecast information could not be retrieved. Please try again later.");
-                }
-            }
-            catch (InvalidOperationException ex)
+            forecastDisplayControl.DisplayForecasts(forecastInfos);
+
+            if (forecastInfos.Count == 0)
             {
-                _messageBoxService.ShowError($"Forecast service error: {ex.Message}");
-            }
-            catch (Exception ex)
-            {
-                _messageBoxService.ShowError($"An unexpected error occurred while retrieving forecast data: {ex.Message}");
+                _messageBoxService.ShowWarning("No forecast data is available for this city.");
             }
         }
     }

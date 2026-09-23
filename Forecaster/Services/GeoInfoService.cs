@@ -3,7 +3,6 @@ using Forecaster.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Forecaster.Services
@@ -26,26 +25,11 @@ namespace Forecaster.Services
                 throw new ArgumentException(@"City name cannot be null or empty.", nameof(cityName));
             }
 
-            try
-            {
-                var geoApiUrl = _urlBuilder.BuildGeoApiUrl(cityName);
+            var geoApiUrl = _urlBuilder.BuildGeoApiUrl(cityName);
+            var geoResponse = await _httpClient.GetFromOpenWeatherMapAsync<List<GeoInfo>>(geoApiUrl);
 
-                using var response = await _httpClient.GetAsync(geoApiUrl);
-                response.EnsureSuccessStatusCode();
-
-                var responseContent = await response.Content.ReadAsStringAsync();
-                var geoResponse = JsonSerializer.Deserialize<List<GeoInfo>>(responseContent);
-
-                return geoResponse?.Count > 0 ? geoResponse[0] : null;
-            }
-            catch (HttpRequestException)
-            {
-                throw;
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidOperationException($"Failed to get geographic information for {cityName}.", ex);
-            }
+            // An empty list means the city was not found, which is not an error
+            return geoResponse.Count > 0 ? geoResponse[0] : null;
         }
     }
 }
