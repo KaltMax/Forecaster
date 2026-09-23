@@ -139,5 +139,43 @@ namespace Test.Controls
             Assert.Same(sunIcon, items[0].Controls.OfType<PictureBox>().Single().Image);
             Assert.Same(rainIcon, items[1].Controls.OfType<PictureBox>().Single().Image);
         }
+
+        [Fact]
+        public void DisplayForecasts_CalledAgain_DisposesPreviousItems()
+        {
+            // Arrange
+            var control = new ForecastDisplayControl();
+            control.DisplayForecasts(new List<ForecastInfo> { new ForecastInfo(), new ForecastInfo() });
+            var oldItems = control.Controls["forecastScrollPanel"]!.Controls.OfType<Panel>().ToList();
+
+            // Act
+            control.DisplayForecasts(new List<ForecastInfo> { new ForecastInfo() });
+
+            // Assert
+            Assert.All(oldItems, item => Assert.True(item.IsDisposed));
+            Assert.All(oldItems.SelectMany(item => item.Controls.Cast<Control>()), child => Assert.True(child.IsDisposed));
+            Assert.Single(control.Controls["forecastScrollPanel"]!.Controls);
+        }
+
+        [Fact]
+        public void DisplayForecasts_CalledAgain_KeepsSharedIconUsable()
+        {
+            // Arrange
+            var control = new ForecastDisplayControl();
+            using var icon = new Bitmap(4, 3);
+            var iconService = Substitute.For<IWeatherIconService>();
+            iconService.GetIconAsync("01d").Returns(icon);
+            control.SetIconService(iconService);
+            var forecasts = new List<ForecastInfo> { new ForecastInfo { Icon = "01d" } };
+
+            // Act
+            control.DisplayForecasts(forecasts);
+            control.DisplayForecasts(forecasts);
+
+            // Assert: a disposed Bitmap throws when its size is read
+            Assert.Equal(new Size(4, 3), icon.Size);
+            var newItem = control.Controls["forecastScrollPanel"]!.Controls.OfType<Panel>().Single();
+            Assert.Same(icon, newItem.Controls.OfType<PictureBox>().Single().Image);
+        }
     }
 }
