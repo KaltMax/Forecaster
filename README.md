@@ -21,7 +21,7 @@ Your `appsettings.json` file is excluded from version control for security. Only
 
 ## Build and Release
 The release package includes:
-- All build files for `net9.0-windows` in the `Forecaster/` directory.
+- All build files for `net10.0-windows` in the `Forecaster/` directory.
 - The `README.md` file for reference.
 
 To build the project yourself:
