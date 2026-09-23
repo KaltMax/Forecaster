@@ -59,11 +59,14 @@ jobs:
       with:
         name: built-solution
 
+    - name: Restore dependencies
+      run: dotnet restore
+
     - name: Copy appsettings.json
       run: copy Forecaster/appsettings.example.json Forecaster/appsettings.json
 
     - name: Run tests
-      run: dotnet test Test/Test.csproj --no-build --configuration Release
+      run: dotnet test --project Test/Test.csproj --no-build --configuration Release
 
   create-release:
     needs: test
