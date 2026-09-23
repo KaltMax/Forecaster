@@ -21,6 +21,24 @@ namespace Forecaster.Controls
         public ForecastDisplayControl()
         {
             InitializeComponent();
+
+            // When scrolling, Windows moves the already painted pixels, including the form's background image that shows
+            // through the semi-transparent items. Repaint everything instead, so the background stays where it belongs.
+            forecastScrollPanel.Scroll += (_, _) => forecastScrollPanel.Invalidate(true);
+            forecastScrollPanel.MouseWheel += (_, _) => forecastScrollPanel.Invalidate(true);
+        }
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                // WS_EX_COMPOSITED: Windows paints this control and all its children into one buffer before showing it,
+                // so the many semi-transparent child controls don't flicker or show half-painted states
+                const int WS_EX_COMPOSITED = 0x02000000;
+                var createParams = base.CreateParams;
+                createParams.ExStyle |= WS_EX_COMPOSITED;
+                return createParams;
+            }
         }
 
         public void SetIconService(IWeatherIconService iconService)
