@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>net9.0-windows</TargetFramework>
+		<TargetFramework>net10.0-windows</TargetFramework>
 		<OutputType>WinExe</OutputType>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<UseWindowsForms>true</UseWindowsForms>
@@ -15,22 +15,22 @@
 		</Content>
 		<Content Include="res\weather-icon.ico" />
 		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-		<PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="9.0.7" />
-		<PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.7" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.7" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="9.0.7" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.7" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.7" />
-		<PackageReference Include="Microsoft.Extensions.FileProviders.Abstractions" Version="9.0.7" />
-		<PackageReference Include="Microsoft.Extensions.FileProviders.Physical" Version="9.0.7" />
-		<PackageReference Include="Microsoft.Extensions.FileSystemGlobbing" Version="9.0.7" />
-		<PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.7" />
-		<PackageReference Include="Microsoft.Extensions.Http" Version="9.0.7" />
-		<PackageReference Include="Microsoft.Extensions.Primitives" Version="9.0.7" />
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-		<PackageReference Include="System.IO.Pipelines" Version="9.0.7" />
+		<PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.12" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.12" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.12" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="10.0.12" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.12" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.12" />
+		<PackageReference Include="Microsoft.Extensions.FileProviders.Abstractions" Version="10.0.12" />
+		<PackageReference Include="Microsoft.Extensions.FileProviders.Physical" Version="10.0.12" />
+		<PackageReference Include="Microsoft.Extensions.FileSystemGlobbing" Version="10.0.12" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.12" />
+		<PackageReference Include="Microsoft.Extensions.Http" Version="10.0.12" />
+		<PackageReference Include="Microsoft.Extensions.Primitives" Version="10.0.12" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+		<PackageReference Include="System.IO.Pipelines" Version="10.0.12" />
 		<PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.1.2" />
-		<PackageReference Include="System.Text.Encodings.Web" Version="9.0.7" />
-		<PackageReference Include="System.Text.Json" Version="9.0.7" />
+		<PackageReference Include="System.Text.Encodings.Web" Version="10.0.12" />
+		<PackageReference Include="System.Text.Json" Version="10.0.12" />
 	</ItemGroup>
 </Project>
