@@ -32,9 +32,34 @@ namespace Forecaster.Controls
             resultWindspeed.Text = $@"{weatherInfo.WindSpeed:F1} m/s";
             weatherCondition.Text = weatherInfo.WeatherCondition;
             resultPressure.Text = $@"{weatherInfo.Pressure} hPa";
-            resultSunrise.Text = DateTimeOffset.FromUnixTimeSeconds(weatherInfo.Sunrise).ToLocalTime().ToString("HH:mm");
-            resultSunset.Text = DateTimeOffset.FromUnixTimeSeconds(weatherInfo.Sunset).ToLocalTime().ToString("HH:mm");
+            DisplaySunTimes(weatherInfo);
             LoadWeatherIcon(weatherInfo.Icon);
+        }
+
+        private void DisplaySunTimes(WeatherInfo weatherInfo)
+        {
+            // Sunrise and sunset are shown in the city's time, all other times in the user's time
+            var cityOffset = TimeSpan.FromSeconds(weatherInfo.TimezoneOffsetSeconds);
+            resultSunrise.Text = $"{DateTimeOffset.FromUnixTimeSeconds(weatherInfo.Sunrise).ToOffset(cityOffset):HH:mm} (local)";
+            resultSunset.Text = $"{DateTimeOffset.FromUnixTimeSeconds(weatherInfo.Sunset).ToOffset(cityOffset):HH:mm} (local)";
+
+            var toolTipText = $"Time in {weatherInfo.CityName} ({FormatUtcOffset(cityOffset)})";
+            toolTip.SetToolTip(resultSunrise, toolTipText);
+            toolTip.SetToolTip(resultSunset, toolTipText);
+        }
+
+        private static string FormatUtcOffset(TimeSpan offset)
+        {
+            if (offset == TimeSpan.Zero)
+            {
+                return "UTC";
+            }
+
+            var sign = offset < TimeSpan.Zero ? "-" : "+";
+            var absolute = offset.Duration();
+            return absolute.Minutes == 0
+                ? $"UTC{sign}{absolute.Hours}"
+                : $"UTC{sign}{absolute.Hours}:{absolute.Minutes:D2}";
         }
 
         private async void LoadWeatherIcon(string iconCode)

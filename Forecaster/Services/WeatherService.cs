@@ -104,7 +104,8 @@ namespace Forecaster.Services
                 WindSpeed = weatherResponse.Wind.Speed,
                 Icon = weatherResponse.Weather[0].Icon,
                 Sunrise = weatherResponse.Sys.Sunrise,
-                Sunset = weatherResponse.Sys.Sunset
+                Sunset = weatherResponse.Sys.Sunset,
+                TimezoneOffsetSeconds = weatherResponse.Timezone
             };
         }
     }

@@ -46,7 +46,8 @@ namespace Test.Services
                     Coord = new Coord { Lat = 40.7128, Lon = -74.0060 },
                     Weather = new List<Weather> { new Weather { Description = "Clear", Icon = "01d" } },
                     Wind = new Wind { Speed = 5.0 },
-                    Sys = new Sys { Sunrise = 1627890000, Sunset = 1627933200 }
+                    Sys = new Sys { Sunrise = 1627890000, Sunset = 1627933200 },
+                    Timezone = -14400
                 }));
 
             // Act
@@ -56,6 +57,7 @@ namespace Test.Services
             Assert.NotNull(result);
             Assert.Equal("New York, US", result.CityName);
             Assert.Equal(25.0, result.Temperature);
+            Assert.Equal(-14400, result.TimezoneOffsetSeconds);
         }
 
         [Fact]
