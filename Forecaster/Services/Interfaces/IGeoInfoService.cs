@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using Forecaster.Models.Domain;
+﻿using Forecaster.Models.Domain;
+using System.Threading.Tasks;
 
 namespace Forecaster.Services.Interfaces
 {

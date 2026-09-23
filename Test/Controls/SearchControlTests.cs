@@ -1,5 +1,5 @@
-﻿using System.Windows.Forms;
-using Forecaster.Controls;
+﻿using Forecaster.Controls;
+using System.Windows.Forms;
 
 namespace Test.Controls
 {

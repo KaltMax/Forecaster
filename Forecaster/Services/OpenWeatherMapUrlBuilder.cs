@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Forecaster.Services.Interfaces;
 using Microsoft.Extensions.Configuration;
-using Forecaster.Services.Interfaces;
+using System;
 
 namespace Forecaster.Services
 {

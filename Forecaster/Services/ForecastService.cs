@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Forecaster.Models.Api;
+using Forecaster.Models.Domain;
+using Forecaster.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Forecaster.Models.Api;
-using Forecaster.Models.Domain;
-using Forecaster.Services.Interfaces;
 
 namespace Forecaster.Services
 {

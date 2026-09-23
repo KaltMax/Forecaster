@@ -1,5 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
-using Forecaster.Services;
+﻿using Forecaster.Services;
+using Microsoft.Extensions.Configuration;
 
 namespace Test.Services
 {

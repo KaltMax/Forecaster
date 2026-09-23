@@ -1,7 +1,6 @@
 ﻿using System.Windows.Forms;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Configuration;
 using Forecaster.Forms;
 using Forecaster.Services;
 using Forecaster.Services.Interfaces;

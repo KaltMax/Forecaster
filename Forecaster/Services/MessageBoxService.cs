@@ -1,5 +1,5 @@
-﻿using System.Windows.Forms;
-using Forecaster.Services.Interfaces;
+﻿using Forecaster.Services.Interfaces;
+using System.Windows.Forms;
 
 namespace Forecaster.Services
 {
