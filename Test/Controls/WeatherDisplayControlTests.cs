@@ -32,8 +32,17 @@ namespace Test.Controls
             var sunriseTime = TimeZoneInfo.ConvertTime(DateTimeOffset.FromUnixTimeSeconds(weatherInfo.Sunrise), testTimeZone);
             var sunsetTime = TimeZoneInfo.ConvertTime(DateTimeOffset.FromUnixTimeSeconds(weatherInfo.Sunset), testTimeZone);
 
-            // Act
-            control.DisplayWeather(weatherInfo);
+            // Act (pin the culture so decimal formatting doesn't depend on the machine)
+            var originalCulture = CultureInfo.CurrentCulture;
+            CultureInfo.CurrentCulture = new CultureInfo("de-AT");
+            try
+            {
+                control.DisplayWeather(weatherInfo);
+            }
+            finally
+            {
+                CultureInfo.CurrentCulture = originalCulture;
+            }
 
             // Assert
             Assert.Equal("New York", control.Controls["resultCity"]!.Text);

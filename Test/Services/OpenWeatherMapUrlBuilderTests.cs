@@ -56,7 +56,7 @@ namespace Test.Services
             string result = _urlBuilder.BuildWeatherApiUrl(latitude, longitude);
 
             // Assert
-            Assert.Equal("https://api.openweathermap.org/data/2.5/weather?lat=51,507400&lon=-0,127800&units=metric&appid=test-api-key", result);
+            Assert.Equal("https://api.openweathermap.org/data/2.5/weather?lat=51.507400&lon=-0.127800&units=metric&appid=test-api-key", result);
         }
 
         [Fact]
@@ -70,7 +70,7 @@ namespace Test.Services
             string result = _urlBuilder.BuildForecastApiUrl(latitude, longitude);
 
             // Assert
-            Assert.Equal("https://api.openweathermap.org/data/2.5/forecast?lat=51,507400&lon=-0,127800&units=metric&appid=test-api-key", result);
+            Assert.Equal("https://api.openweathermap.org/data/2.5/forecast?lat=51.507400&lon=-0.127800&units=metric&appid=test-api-key", result);
         }
 
         [Fact]

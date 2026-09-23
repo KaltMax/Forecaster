@@ -1,5 +1,6 @@
 ﻿using Forecaster.Controls;
 using Forecaster.Models.Domain;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace Test.Controls
@@ -86,8 +87,17 @@ namespace Test.Controls
                 }
             };
 
-            // Act
-            control.DisplayForecasts(forecasts);
+            // Act (pin the culture so decimal formatting doesn't depend on the machine)
+            var originalCulture = CultureInfo.CurrentCulture;
+            CultureInfo.CurrentCulture = new CultureInfo("de-AT");
+            try
+            {
+                control.DisplayForecasts(forecasts);
+            }
+            finally
+            {
+                CultureInfo.CurrentCulture = originalCulture;
+            }
 
             // Assert
             var scrollPanel = control.Controls["forecastScrollPanel"];

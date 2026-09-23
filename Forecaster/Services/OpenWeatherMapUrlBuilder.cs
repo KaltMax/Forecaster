@@ -1,6 +1,7 @@
 ﻿using Forecaster.Services.Interfaces;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Globalization;
 
 namespace Forecaster.Services
 {
@@ -38,12 +39,12 @@ namespace Forecaster.Services
 
         public string BuildWeatherApiUrl(double latitude, double longitude)
         {
-            return $"{BaseApiUrl}{WeatherApiPath}?lat={latitude:F6}&lon={longitude:F6}&units={Units}&appid={_apiKey}";
+            return string.Create(CultureInfo.InvariantCulture, $"{BaseApiUrl}{WeatherApiPath}?lat={latitude:F6}&lon={longitude:F6}&units={Units}&appid={_apiKey}");
         }
 
         public string BuildForecastApiUrl(double latitude, double longitude)
         {
-            return $"{BaseApiUrl}{ForecastApiPath}?lat={latitude:F6}&lon={longitude:F6}&units={Units}&appid={_apiKey}";
+            return string.Create(CultureInfo.InvariantCulture, $"{BaseApiUrl}{ForecastApiPath}?lat={latitude:F6}&lon={longitude:F6}&units={Units}&appid={_apiKey}");
         }
     }
 }
