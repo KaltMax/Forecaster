@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Forecaster.Forms;
@@ -9,21 +10,23 @@ namespace Forecaster
 {
     internal static class Program
     {
+        [STAThread]
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            var host = Host.CreateDefaultBuilder()
+            // Load appsettings.json from the exe's folder, not the current working directory
+            using var host = Host.CreateDefaultBuilder()
+                .UseContentRoot(AppContext.BaseDirectory)
                 .ConfigureServices((context, services) =>
                 {
                     services.AddSingleton(context.Configuration);
-                    services.AddHttpClient<IWeatherService, WeatherService>();
                     services.AddTransient<IMessageBoxService, MessageBoxService>();
                     services.AddTransient<IOpenWeatherMapUrlBuilder, OpenWeatherMapUrlBuilder>();
                     services.AddHttpClient<IWeatherService, WeatherService>();
                     services.AddHttpClient<IForecastService, ForecastService>();
-                    services.AddTransient<IGeoInfoService, GeoInfoService>();
+                    services.AddHttpClient<IGeoInfoService, GeoInfoService>();
                     services.AddTransient<WeatherForecastForm>();
                 })
                 .Build();
