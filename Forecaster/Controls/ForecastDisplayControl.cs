@@ -32,6 +32,9 @@ namespace Forecaster.Controls
         {
             ClearForecastItems();
 
+            // Scroll back to the start, because new item locations are relative to the current scroll position
+            forecastScrollPanel.AutoScrollPosition = Point.Empty;
+
             if (forecasts == null || forecasts.Count == 0)
             {
                 return;

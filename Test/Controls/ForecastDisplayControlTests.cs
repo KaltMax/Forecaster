@@ -141,6 +141,28 @@ namespace Test.Controls
         }
 
         [Fact]
+        public void DisplayForecasts_AfterScrollingRight_StartsNewForecastsAtTheBeginning()
+        {
+            // Arrange: scrolling only works once the panel has a window handle
+            var control = new ForecastDisplayControl();
+            var scrollPanel = (Panel)control.Controls["forecastScrollPanel"]!;
+            _ = control.Handle;
+            _ = scrollPanel.Handle;
+
+            var forecasts = Enumerable.Range(0, 40).Select(_ => new ForecastInfo()).ToList();
+            control.DisplayForecasts(forecasts);
+            scrollPanel.AutoScrollPosition = new Point(2000, 0);
+            Assert.NotEqual(0, scrollPanel.AutoScrollPosition.X);
+
+            // Act
+            control.DisplayForecasts(forecasts);
+
+            // Assert
+            Assert.Equal(Point.Empty, scrollPanel.AutoScrollPosition);
+            Assert.Equal(10, scrollPanel.Controls[0].Left);
+        }
+
+        [Fact]
         public void DisplayForecasts_CalledAgain_DisposesPreviousItems()
         {
             // Arrange
