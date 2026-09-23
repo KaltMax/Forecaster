@@ -26,11 +26,10 @@ namespace Test.Controls
                 MeasurementTime = 1625247600
             };
 
-            // Convert timestamps to UTC+2
-            var testTimeZone = TimeZoneInfo.CreateCustomTimeZone("UTC+2", TimeSpan.FromHours(2), "UTC+2", "UTC+2");
-            var measurementTime = TimeZoneInfo.ConvertTime(DateTimeOffset.FromUnixTimeSeconds(weatherInfo.MeasurementTime), testTimeZone);
-            var sunriseTime = TimeZoneInfo.ConvertTime(DateTimeOffset.FromUnixTimeSeconds(weatherInfo.Sunrise), testTimeZone);
-            var sunsetTime = TimeZoneInfo.ConvertTime(DateTimeOffset.FromUnixTimeSeconds(weatherInfo.Sunset), testTimeZone);
+            // The control shows times in the machine's local time zone, so the expected values must too
+            var measurementTime = DateTimeOffset.FromUnixTimeSeconds(weatherInfo.MeasurementTime).ToLocalTime();
+            var sunriseTime = DateTimeOffset.FromUnixTimeSeconds(weatherInfo.Sunrise).ToLocalTime();
+            var sunsetTime = DateTimeOffset.FromUnixTimeSeconds(weatherInfo.Sunset).ToLocalTime();
 
             // Act (pin the culture so decimal formatting doesn't depend on the machine)
             var originalCulture = CultureInfo.CurrentCulture;
